@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diccionario de Datos - Farmacia Santa Cruz</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.5; color: #333; background: #f5f5f5; padding: 30px; }
+        .document { max-width: 1100px; margin: 0 auto; background: white; box-shadow: 0 0 20px rgba(0,0,0,0.1); padding: 40px; }
+
+        /* PORTADA */
+        .cover { text-align: center; margin-bottom: 50px; padding: 40px 20px; border-bottom: 3px solid #000; page-break-after: always; }
+        .cover h1 { font-size: 26px; margin: 25px 0; text-transform: uppercase; font-weight: bold; }
+        .cover h2 { font-size: 20px; margin: 20px 0; }
+
+        /* SECCIONES */
+        .section { margin: 36px 0; }
+        .section-title { font-size: 20px; font-weight: bold; margin: 30px 0 16px 0; padding-bottom: 6px; border-bottom: 3px solid #000; text-transform: uppercase; letter-spacing: 1px; }
+        .info-box { border: 1px solid #bbb; padding: 14px 18px; margin: 12px 0; background: #f9f9f9; font-size: 13px; }
+
+        /* BLOQUE DE TABLA (mantiene nombre + tabla juntos) */
+        .table-block { page-break-inside: avoid; break-inside: avoid; margin: 0 0 32px 0; }
+        .table-name {
+            font-size: 15px;
+            font-weight: bold;
+            background: #1a3a5c;
+            color: white;
+            padding: 8px 14px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* TABLAS ESTILO MAESTRA */
+        .dict-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .dict-table .col-header th {
+            background: #2e6da4;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px 10px;
+            border: 1px solid #1a3a5c;
+            font-size: 13px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .dict-table td {
+            padding: 7px 10px;
+            border: 1px solid #bbb;
+            vertical-align: top;
+        }
+        .dict-table tbody tr:nth-child(odd)  td { background: #ffffff; }
+        .dict-table tbody tr:nth-child(even) td {
+            background: #eaf1fb;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .res-pk  { color: #c0392b; font-weight: bold; font-size: 12px; }
+        .res-fk  { color: #1a5ea8; font-weight: bold; font-size: 12px; }
+        .res-nn  { color: #1e8449; font-size: 12px; }
+        .res-def { color: #555; font-size: 12px; }
+        .res-uq  { color: #b7950b; font-weight: bold; font-size: 12px; }
+
+        /* TABLA DE RELACIONES */
+        .rel-table { width: 100%; border-collapse: collapse; margin: 10px 0 30px 0; font-size: 13px; }
+        .rel-table th {
+            background: #1a3a5c;
+            color: white;
+            padding: 9px 10px;
+            border: 1px solid #1a3a5c;
+            text-align: center;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .rel-table td { padding: 7px 10px; border: 1px solid #bbb; vertical-align: top; }
+        .rel-table tbody tr:nth-child(odd)  td { background: #fff; }
+        .rel-table tbody tr:nth-child(even) td { background: #eaf1fb; }
+        .rel-nm td { background: #eafaf1 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+        /* LEYENDA */
+        .legend { display: flex; gap: 24px; flex-wrap: wrap; margin: 10px 0 20px 0; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+
+        /* IMPRESIÓN */
+        @media print {
+            body { padding: 0; background: white; }
+            .document { box-shadow: none; padding: 15px; max-width: 100%; }
+            .table-block { page-break-inside: avoid; break-inside: avoid; }
+            .section { page-break-inside: avoid; }
+            .table-name {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                background: #1a3a5c !important;
+                color: white !important;
+            }
+            .dict-table .col-header th {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: #2e6da4 !important;
+                color: white !important;
+            }
+            .dict-table tbody tr:nth-child(even) td {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: #eaf1fb !important;
+            }
+            .rel-table th {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background: #1a3a5c !important;
+                color: white !important;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document">
+
+    <!-- PORTADA -->
+    <div class="cover">
+        <div style="font-size: 20px; font-weight: bold;">INSTITUTO NACIONAL DE SAN MARTÍN</div>
+        <h2>2° BACHILLERATO TÉCNICO EN DESARROLLO DE SOFTWARE "B"</h2>
+        <div style="font-size: 17px; margin: 14px 0;">DISEÑO DE SISTEMA</div>
+        <div style="font-size: 17px; margin: 8px 0;">DESARROLLO DEL DISEÑO DE PROTOTIPO DE</div>
+        <div style="font-size: 17px; margin: 8px 0;">INVENTARIADO FARMACÉUTICO DE LA FARMACIA</div>
+        <div style="font-size: 17px; margin: 8px 0;">SANTA CRUZ</div>
+        <h1>DICCIONARIO DE DATOS</h1>
+        <div style="font-size: 17px; margin: 18px 0;">GRUPO N°: 7</div>
+        <div style="font-size: 15px; margin: 8px 0;">Stiven Gabriel López Hernández #04</div>
+        <div style="font-size: 15px; margin: 4px 0;">Joel Edgardo Mendoza López #08</div>
+        <div style="font-size: 15px; margin: 4px 0;">Guadalupe Abigaíl Romero Pedreza #32</div>
+        <div style="font-size: 15px; margin: 4px 0;">Tiffany Alessandra Sermeño Flores #34</div>
+        <div style="font-size: 15px; margin: 14px 0;">DOCENTE: Maria Magdalena García González</div>
+        <div style="margin-top: 36px; font-size: 17px;">Marzo 2026, San Martín, San Salvador, El Salvador</div>
+    </div>
+
+    <!-- INTRODUCCIÓN -->
+    <div class="section">
+        <div class="section-title">Introducción</div>
+        <div class="info-box">
+            El presente Diccionario de Datos describe de forma detallada cada una de las tablas y sus campos que conforman la base de datos del sistema de inventario de la <strong>Farmacia Santa Cruz</strong>. Para cada campo se especifica: nombre, tipo de dato, longitud, descripción funcional y restricciones aplicadas.
+        </div>
+
+        <div class="section-title" style="font-size:15px; margin-top:24px;">Leyenda de Restricciones</div>
+        <div class="legend">
+            <div class="legend-item"><span class="res-pk">PK</span> &nbsp;Llave Primaria: identifica de forma única cada fila.</div>
+            <div class="legend-item"><span class="res-fk">FK → Tabla(campo)</span> &nbsp;Llave Foránea: referencia a otra tabla.</div>
+            <div class="legend-item"><span class="res-nn">NOT NULL</span> &nbsp;El campo no puede estar vacío.</div>
+            <div class="legend-item"><span class="res-def">AUTO_INCREMENT</span> &nbsp;El valor se genera automáticamente.</div>
+            <div class="legend-item"><span class="res-uq">UNIQUE</span> &nbsp;El valor no puede repetirse en la tabla.</div>
+        </div>
+    </div>
+
+
+    <!-- TABLAS -->
+    <div class="section">
+        <div class="section-title">Tablas del Sistema</div>
+
+        <!-- ====== 1. USUARIO ====== -->
+        <div class="table-block">
+            <div class="table-name">Tabla: Usuario</div>
+            <table class="dict-table">
+                <tr class="col-header"><th>Campo</th><th>Tipo de Dato</th><th>Long.</th><th>Descripción</th><th>Restricciones</th></tr>
+                <tbody>
+                <tr><td>id_usuario</td><td>INT</td><td>—</td><td>Identificador único del registro de usuario.</td><td class="res-pk">PK, NOT NULL, AUTO_INCREMENT</td></tr>
+                <tr><td>nombre</td><td>VARCHAR</td><td>100</td><td>Nombre completo del administrador, empleado o proveedor.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>usuario</td><td>VARCHAR</td><td>50</td><td>Alias de inicio de sesión. Debe ser único en el sistema.</td><td><span class="res-nn">NOT NULL</span>, <span class="res-uq">UNIQUE</span></td></tr>
+                <tr><td>contrasena</td><td>VARCHAR</td><td>255</td><td>Contraseña cifrada. Protege el acceso contra personas no autorizadas.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>rol</td><td>ENUM</td><td>—</td><td>Nivel de permisos: 'administrador', 'vendedor' o 'proveedor'.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>activo</td><td>TINYINT</td><td>1</td><td>Indica si la cuenta está habilitada (1 = activo, 0 = inactivo).</td><td class="res-def">NOT NULL, DEFAULT 1</td></tr>
+                <tr><td>fecha_creacion</td><td>DATETIME</td><td>—</td><td>Fecha y hora en que la cuenta fue creada.</td><td class="res-def">DEFAULT NOW()</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ====== 2. PROVEEDOR ====== -->
+        <div class="table-block">
+            <div class="table-name">Tabla: Proveedor</div>
+            <table class="dict-table">
+                <tr class="col-header"><th>Campo</th><th>Tipo de Dato</th><th>Long.</th><th>Descripción</th><th>Restricciones</th></tr>
+                <tbody>
+                <tr><td>id_proveedor</td><td>INT</td><td>—</td><td>Identificador único del distribuidor o laboratorio.</td><td class="res-pk">PK, NOT NULL, AUTO_INCREMENT</td></tr>
+                <tr><td>nombre</td><td>VARCHAR</td><td>150</td><td>Nombre comercial o razón social del proveedor.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>contacto</td><td>VARCHAR</td><td>100</td><td>Nombre del representante de la empresa distribuidora.</td><td class="res-def">NULL</td></tr>
+                <tr><td>telefono</td><td>VARCHAR</td><td>20</td><td>Número telefónico para coordinar pedidos o entregas.</td><td class="res-def">NULL</td></tr>
+                <tr><td>email</td><td>VARCHAR</td><td>100</td><td>Correo electrónico para comunicaciones y envío de recibos.</td><td class="res-def">NULL</td></tr>
+                <tr><td>direccion</td><td>VARCHAR</td><td>200</td><td>Dirección física del proveedor para logística de entrega.</td><td class="res-def">NULL</td></tr>
+                <tr><td>activo</td><td>TINYINT</td><td>1</td><td>Indica si el proveedor sigue activo (1) o fue dado de baja (0).</td><td class="res-def">NOT NULL, DEFAULT 1</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ====== 3. CATEGORIA ====== -->
+        <div class="table-block">
+            <div class="table-name">Tabla: Categoria</div>
+            <table class="dict-table">
+                <tr class="col-header"><th>Campo</th><th>Tipo de Dato</th><th>Long.</th><th>Descripción</th><th>Restricciones</th></tr>
+                <tbody>
+                <tr><td>id_categoria</td><td>INT</td><td>—</td><td>Identificador único de la categoría.</td><td class="res-pk">PK, NOT NULL, AUTO_INCREMENT</td></tr>
+                <tr><td>nombre</td><td>VARCHAR</td><td>100</td><td>Nombre de la categoría (ej. Analgésicos, Antibióticos). Debe ser único.</td><td><span class="res-nn">NOT NULL</span>, <span class="res-uq">UNIQUE</span></td></tr>
+                <tr><td>descripcion</td><td>TEXT</td><td>—</td><td>Descripción general sobre el tipo de medicamentos que agrupa.</td><td class="res-def">NULL</td></tr>
+                <tr><td>activo</td><td>TINYINT</td><td>1</td><td>Permite desactivar categorías en desuso sin eliminarlas.</td><td class="res-def">NOT NULL, DEFAULT 1</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ====== 4. PRODUCTO ====== -->
+        <div class="table-block">
+            <div class="table-name">Tabla: Producto</div>
+            <table class="dict-table">
+                <tr class="col-header"><th>Campo</th><th>Tipo de Dato</th><th>Long.</th><th>Descripción</th><th>Restricciones</th></tr>
+                <tbody>
+                <tr><td>id_producto</td><td>INT</td><td>—</td><td>Identificador único del medicamento o artículo.</td><td class="res-pk">PK, NOT NULL, AUTO_INCREMENT</td></tr>
+                <tr><td>codigo_barras</td><td>VARCHAR</td><td>50</td><td>Código de barras para escaneo rápido. Opcional pero único si se ingresa.</td><td><span class="res-uq">UNIQUE</span>, <span class="res-def">NULL</span></td></tr>
+                <tr><td>nombre</td><td>VARCHAR</td><td>150</td><td>Nombre comercial del medicamento tal como aparece en el empaque.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>descripcion</td><td>TEXT</td><td>—</td><td>Información adicional sobre el uso o gramaje del fármaco.</td><td class="res-def">NULL</td></tr>
+                <tr><td>id_categoria</td><td>INT</td><td>—</td><td>Indica a qué grupo pertenece el medicamento.</td><td class="res-fk">FK → Categoria(id_categoria), NOT NULL</td></tr>
+                <tr><td>laboratorio</td><td>VARCHAR</td><td>100</td><td>Nombre del fabricante o laboratorio productor.</td><td class="res-def">NULL</td></tr>
+                <tr><td>precio_costo</td><td>DECIMAL</td><td>10,2</td><td>Precio al que la farmacia adquiere el producto del proveedor.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>precio_venta</td><td>DECIMAL</td><td>10,2</td><td>Precio de venta al público.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>stock_actual</td><td>INT</td><td>—</td><td>Cantidad en existencia. Sube con compras y baja con ventas.</td><td class="res-def">NOT NULL, DEFAULT 0</td></tr>
+                <tr><td>stock_minimo</td><td>INT</td><td>—</td><td>Límite mínimo. Si stock_actual ≤ stock_minimo se genera una Alerta.</td><td class="res-def">NOT NULL, DEFAULT 0</td></tr>
+                <tr><td>fecha_vencimiento</td><td>DATE</td><td>—</td><td>Fecha de caducidad. Si quedan ≤ 30 días se genera una Alerta.</td><td class="res-def">NULL</td></tr>
+                <tr><td>activo</td><td>TINYINT</td><td>1</td><td>Indica si el producto está disponible (1) o fue retirado (0).</td><td class="res-def">NOT NULL, DEFAULT 1</td></tr>
+                <tr><td>fecha_registro</td><td>DATETIME</td><td>—</td><td>Fecha en que el producto fue ingresado al sistema.</td><td class="res-def">DEFAULT NOW()</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ====== 5. COMPRA ====== -->
+        <div class="table-block">
+            <div class="table-name">Tabla: Compra</div>
+            <table class="dict-table">
+                <tr class="col-header"><th>Campo</th><th>Tipo de Dato</th><th>Long.</th><th>Descripción</th><th>Restricciones</th></tr>
+                <tbody>
+                <tr><td>id_compra</td><td>INT</td><td>—</td><td>Identificador único de la orden de compra.</td><td class="res-pk">PK, NOT NULL, AUTO_INCREMENT</td></tr>
+                <tr><td>id_proveedor</td><td>INT</td><td>—</td><td>Proveedor que realizó el despacho de mercancía.</td><td class="res-fk">FK → Proveedor(id_proveedor), NOT NULL</td></tr>
+                <tr><td>id_usuario</td><td>INT</td><td>—</td><td>Administrador o empleado que registró la compra en el sistema.</td><td class="res-fk">FK → Usuario(id_usuario), NOT NULL</td></tr>
+                <tr><td>numero_factura</td><td>VARCHAR</td><td>50</td><td>Número de factura físico del proveedor para cruzar con documentos impresos.</td><td class="res-def">NULL</td></tr>
+                <tr><td>fecha_compra</td><td>DATETIME</td><td>—</td><td>Fecha y hora exacta en que se realizó la compra.</td><td class="res-def">NOT NULL, DEFAULT NOW()</td></tr>
+                <tr><td>total</td><td>DECIMAL</td><td>10,2</td><td>Monto total pagado. Suma de todos los subtotales de DetalleCompra.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>metodo_pago</td><td>ENUM</td><td>—</td><td>Forma de pago: 'efectivo', 'transferencia' o 'credito'.</td><td class="res-nn">NOT NULL</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ====== 6. DETALLECOMPRA ====== -->
+        <div class="table-block">
+            <div class="table-name">Tabla: DetalleCompra &nbsp;— Tabla intermedia N:M (Compra ↔ Producto)</div>
+            <table class="dict-table">
+                <tr class="col-header"><th>Campo</th><th>Tipo de Dato</th><th>Long.</th><th>Descripción</th><th>Restricciones</th></tr>
+                <tbody>
+                <tr><td>id_detalle_compra</td><td>INT</td><td>—</td><td>Identificador único de cada línea de detalle dentro de una compra.</td><td class="res-pk">PK, NOT NULL, AUTO_INCREMENT</td></tr>
+                <tr><td>id_compra</td><td>INT</td><td>—</td><td>Orden de compra a la que pertenece este detalle.</td><td class="res-fk">FK → Compra(id_compra), NOT NULL</td></tr>
+                <tr><td>id_producto</td><td>INT</td><td>—</td><td>Producto adquirido. Su stock_actual aumenta al registrar.</td><td class="res-fk">FK → Producto(id_producto), NOT NULL</td></tr>
+                <tr><td>cantidad</td><td>INT</td><td>—</td><td>Número de unidades recibidas del medicamento en esta línea.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>precio_unitario</td><td>DECIMAL</td><td>10,2</td><td>Precio por unidad al momento de la compra. Se congela para auditorías.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>subtotal</td><td>DECIMAL</td><td>10,2</td><td>Resultado de: cantidad × precio_unitario. Contribuye al total de la Compra.</td><td class="res-nn">NOT NULL</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ====== 7. VENTA ====== -->
+        <div class="table-block">
+            <div class="table-name">Tabla: Venta</div>
+            <table class="dict-table">
+                <tr class="col-header"><th>Campo</th><th>Tipo de Dato</th><th>Long.</th><th>Descripción</th><th>Restricciones</th></tr>
+                <tbody>
+                <tr><td>id_venta</td><td>INT</td><td>—</td><td>Identificador único de la transacción de venta.</td><td class="res-pk">PK, NOT NULL, AUTO_INCREMENT</td></tr>
+                <tr><td>id_usuario</td><td>INT</td><td>—</td><td>Empleado o vendedor que procesó el cobro en el mostrador.</td><td class="res-fk">FK → Usuario(id_usuario), NOT NULL</td></tr>
+                <tr><td>fecha_venta</td><td>DATETIME</td><td>—</td><td>Fecha y hora exacta del despacho.</td><td class="res-def">NOT NULL, DEFAULT NOW()</td></tr>
+                <tr><td>total</td><td>DECIMAL</td><td>10,2</td><td>Monto total cobrado. Suma de todos los subtotales de DetalleVenta.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>metodo_pago</td><td>ENUM</td><td>—</td><td>Forma de pago: 'efectivo' o 'tarjeta'.</td><td class="res-nn">NOT NULL</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ====== 8. DETALLEVENTA ====== -->
+        <div class="table-block">
+            <div class="table-name">Tabla: DetalleVenta &nbsp;— Tabla intermedia N:M (Venta ↔ Producto)</div>
+            <table class="dict-table">
+                <tr class="col-header"><th>Campo</th><th>Tipo de Dato</th><th>Long.</th><th>Descripción</th><th>Restricciones</th></tr>
+                <tbody>
+                <tr><td>id_detalle_venta</td><td>INT</td><td>—</td><td>Identificador único de cada línea de producto dentro de la venta.</td><td class="res-pk">PK, NOT NULL, AUTO_INCREMENT</td></tr>
+                <tr><td>id_venta</td><td>INT</td><td>—</td><td>Venta a la que pertenece este detalle de producto.</td><td class="res-fk">FK → Venta(id_venta), NOT NULL</td></tr>
+                <tr><td>id_producto</td><td>INT</td><td>—</td><td>Medicamento despachado. Su stock_actual disminuye al confirmar.</td><td class="res-fk">FK → Producto(id_producto), NOT NULL</td></tr>
+                <tr><td>cantidad</td><td>INT</td><td>—</td><td>Número de unidades del medicamento vendidas en esta línea.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>precio_unitario</td><td>DECIMAL</td><td>10,2</td><td>Precio por unidad al momento de la venta. Se congela para auditorías.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>subtotal</td><td>DECIMAL</td><td>10,2</td><td>Resultado de: cantidad × precio_unitario. Contribuye al total de la Venta.</td><td class="res-nn">NOT NULL</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ====== 9. ALERTA ====== -->
+        <div class="table-block">
+            <div class="table-name">Tabla: Alerta</div>
+            <table class="dict-table">
+                <tr class="col-header"><th>Campo</th><th>Tipo de Dato</th><th>Long.</th><th>Descripción</th><th>Restricciones</th></tr>
+                <tbody>
+                <tr><td>id_alerta</td><td>INT</td><td>—</td><td>Identificador único de cada notificación generada por el sistema.</td><td class="res-pk">PK, NOT NULL, AUTO_INCREMENT</td></tr>
+                <tr><td>id_producto</td><td>INT</td><td>—</td><td>Producto que originó la alerta (stock bajo o próximo a vencer).</td><td class="res-fk">FK → Producto(id_producto), NOT NULL</td></tr>
+                <tr><td>tipo_alerta</td><td>ENUM</td><td>—</td><td>Categoría: 'stock_bajo' (stock ≤ mínimo) o 'vencimiento' (≤ 30 días).</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>mensaje</td><td>TEXT</td><td>—</td><td>Texto informativo que describe el problema para orientar al administrador.</td><td class="res-nn">NOT NULL</td></tr>
+                <tr><td>fecha_alerta</td><td>DATETIME</td><td>—</td><td>Fecha y hora en que el sistema generó la notificación.</td><td class="res-def">NOT NULL, DEFAULT NOW()</td></tr>
+                <tr><td>leida</td><td>TINYINT</td><td>1</td><td>Estado: 0 = pendiente, 1 = leída y resuelta por el administrador.</td><td class="res-def">NOT NULL, DEFAULT 0</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    <!-- RELACIONES -->
+    <div class="section">
+        <div class="section-title">Relaciones entre Tablas</div>
+        <p style="font-size:13px; color:#555; margin-bottom:10px;">
+            <strong>1 → *</strong> Un registro puede relacionarse con muchos de la otra tabla, pero no al revés. &nbsp;|&nbsp;
+            <strong>N : M</strong> Muchos a muchos, resuelto con tabla intermedia.
+        </p>
+        <table class="rel-table">
+            <tr><th>#</th><th>Tabla Origen</th><th>Cardinalidad</th><th>Tabla Destino</th><th>Descripción</th></tr>
+            <tr><td>R1</td><td>Usuario</td><td style="text-align:center;font-weight:bold;">1 → *</td><td>Compra</td><td>Un usuario registra muchas compras; cada compra la autoriza un usuario.</td></tr>
+            <tr><td>R2</td><td>Usuario</td><td style="text-align:center;font-weight:bold;">1 → *</td><td>Venta</td><td>Un usuario procesa muchas ventas; cada venta la atiende un usuario.</td></tr>
+            <tr><td>R3</td><td>Proveedor</td><td style="text-align:center;font-weight:bold;">1 → *</td><td>Compra</td><td>Un proveedor tiene muchas órdenes de compra; cada compra es de un proveedor.</td></tr>
+            <tr><td>R4</td><td>Categoria</td><td style="text-align:center;font-weight:bold;">1 → *</td><td>Producto</td><td>Una categoría agrupa muchos productos; cada producto pertenece a una categoría.</td></tr>
+            <tr><td>R5</td><td>Compra</td><td style="text-align:center;font-weight:bold;">1 → *</td><td>DetalleCompra</td><td>Una compra tiene muchas líneas de detalle; cada detalle pertenece a una compra.</td></tr>
+            <tr><td>R6</td><td>Producto</td><td style="text-align:center;font-weight:bold;">1 → *</td><td>DetalleCompra</td><td>Un producto puede aparecer en muchos detalles de compra.</td></tr>
+            <tr><td>R7</td><td>Venta</td><td style="text-align:center;font-weight:bold;">1 → *</td><td>DetalleVenta</td><td>Una venta tiene muchas líneas de medicamentos; cada detalle pertenece a una venta.</td></tr>
+            <tr><td>R8</td><td>Producto</td><td style="text-align:center;font-weight:bold;">1 → *</td><td>DetalleVenta</td><td>Un producto puede venderse en muchas ocasiones distintas.</td></tr>
+            <tr><td>R9</td><td>Producto</td><td style="text-align:center;font-weight:bold;">1 → *</td><td>Alerta</td><td>Un producto puede generar múltiples alertas a lo largo del tiempo.</td></tr>
+            <tr class="rel-nm"><td>—</td><td>Compra + Producto</td><td style="text-align:center;font-weight:bold;">N : M</td><td>DetalleCompra</td><td>Una compra incluye varios productos y un producto puede estar en varias compras.</td></tr>
+            <tr class="rel-nm"><td>—</td><td>Venta + Producto</td><td style="text-align:center;font-weight:bold;">N : M</td><td>DetalleVenta</td><td>Una venta incluye varios productos y un producto puede estar en varias ventas.</td></tr>
+        </table>
+    </div>        
+    </div>
+
+
+</div>
+</body>
+</html>
