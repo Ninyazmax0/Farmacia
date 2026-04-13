@@ -1,0 +1,178 @@
+@startuml FarmaciaSantaCruz
+
+skinparam classAttributeIconSize 0
+skinparam backgroundColor #FEFECE
+skinparam ArrowColor #A80036
+skinparam ClassBorderColor #A80036
+
+' ═══════════════════════════════════════════════════════════════
+' CLASES DEL SISTEMA - FARMACIA SANTA CRUZ
+' Sistema de inventario para farmacia local
+' ═══════════════════════════════════════════════════════════════
+
+class Usuario {
+    - idUsuario: int PK
+    - usuario: string
+    - contrasena: string
+    - rol: string
+    - ultimoAcceso: DateTime
+    + iniciarSesion()
+    + cerrarSesion()
+    + cambiarContrasena()
+}
+
+class Proveedor {
+    - idProveedor: int PK
+    - nombre: string
+    - telefono: string
+    - email: string
+    - contacto: string
+    - direccion: string
+    + actualizarDatos()
+}
+
+class Categoria {
+    - idCategoria: int PK
+    - nombre: string
+    - descripcion: string
+    + agregarProducto()
+    + obtenerProductos()
+}
+
+class Producto {
+    - idProducto: int PK
+    - idCategoria: int FK
+    - codigoBarras: string
+    - nombre: string
+    - precioCosto: decimal
+    - precioVenta: decimal
+    - stockMinimo: int
+    - stockActual: int
+    - laboratorio: string
+    - fechaVencimiento: Date
+    - estaActivo: boolean
+    + reducirStock(cantidad: int)
+    + aumentarStock(cantidad: int)
+    + verificarVencimiento()
+    + calcularGanancia()
+    + estaBajoStock()
+    + actualizarPrecio()
+}
+
+class Compra {
+    - idCompra: int PK
+    - idProveedor: int FK
+    - idUsuario: int FK
+    - numeroOrden: string
+    - fechaHora: DateTime
+    - subtotal: decimal
+    - descuento: decimal
+    - total: decimal
+    - estado: string
+    + calcularTotal()
+    + recibirMercancia()
+    + generarOrden()
+    + anularCompra()
+}
+
+class DetalleCompra {
+    - idDetalle: int PK
+    - idCompra: int FK
+    - idProducto: int FK
+    - cantidad: int
+    - precioUnitario: decimal
+    - subtotal: decimal
+    + calcularSubtotal()
+}
+
+class Venta {
+    - idVenta: int PK
+    - idUsuario: int FK
+    - numeroFactura: string
+    - fechaHora: DateTime
+    - subtotal: decimal
+    - descuento: decimal
+    - total: decimal
+    - metodoPago: string
+    - estado: string
+    + calcularTotal()
+    + aplicarDescuento()
+    + generarFactura()
+    + anularVenta()
+}
+
+class DetalleVenta {
+    - idDetalle: int PK
+    - idVenta: int FK
+    - idProducto: int FK
+    - cantidad: int
+    - precioUnitario: decimal
+    - subtotal: decimal
+    + calcularSubtotal()
+}
+
+class Alerta {
+    - idAlerta: int PK
+    - idProducto: int FK
+    - tipo: string
+    - mensaje: string
+    - fechaGenerada: DateTime
+    - estaLeida: boolean
+    + marcarLeida()
+    + eliminar()
+}
+
+class Reporte {
+    - idReporte: int PK
+    - tipo: string
+    - fechaGeneracion: DateTime
+    - parametros: string
+    + generar()
+    + exportar()
+}
+
+' ═══════════════════════════════════════════════════════════════
+' RELACIONES DE ASOCIACIÓN
+' ═══════════════════════════════════════════════════════════════
+
+Usuario "1" --> "*" Venta
+Venta "idUsuario" --> "1" Usuario
+
+Usuario "1" --> "*" Compra
+Compra "idUsuario" --> "1" Usuario
+
+Proveedor "1" --> "*" Compra
+Compra "idProveedor" --> "1" Proveedor
+
+Producto "*" --> "1" Categoria
+Categoria "1" --> "*" Producto
+
+' ═══════════════════════════════════════════════════════════════
+' RELACIONES DE COMPOSICIÓN
+' ═══════════════════════════════════════════════════════════════
+
+Venta "1" *-- "1..*" DetalleVenta
+
+Compra "1" *-- "1..*" DetalleCompra
+
+' ═══════════════════════════════════════════════════════════════
+' RELACIONES DE ASOCIACIÓN (FK)
+' ═══════════════════════════════════════════════════════════════
+
+DetalleVenta "idVenta" --> "1" Venta
+DetalleVenta "idProducto" --> "1" Producto
+
+DetalleCompra "idCompra" --> "1" Compra
+DetalleCompra "idProducto" --> "1" Producto
+
+' ═══════════════════════════════════════════════════════════════
+' RELACIONES DE AGREGACIÓN
+' ═══════════════════════════════════════════════════════════════
+
+Producto "1" o-- "*" Alerta
+
+Reporte "1" o-- "*" Venta
+Reporte "1" o-- "*" Producto
+Reporte "1" o-- "*" Compra
+
+@enduml

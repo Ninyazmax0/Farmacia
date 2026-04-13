@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Farmacia Santa Cruz - Portafolio">
+    <meta property="og:description" content="Sistema de Inventario - Proyecto de Desarrollo de Software">
+    <title>Farmacia Santa Cruz | Portafolio</title>
+    
+    <!-- Fonts como idea.html -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.6/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FullPage.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
+    
+    <style>
+        /* ========================================
+           BASE - COMO idea.html
+           ======================================== */
+        html {
+            font-size: 62.5%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        *, :after, :before {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        a, abbr, address, article, aside, audio, b, blockquote, body, canvas, caption, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            font-size: 1.6rem;
+            color: #828c96;
+            line-height: 1;
+            background: #1a1a2e;
+            overflow-x: hidden;
+        }
+
+        html.fp-enabled, .fp-enabled body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        /* ========================================
+           HEADER
+           ======================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        header .name {
+            font-family: 'Abril Fatface', serif;
+            font-size: 1.8rem;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+        }
+
+        header .wrap {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        header .icons {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        header .icons a {
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        header .icons a:hover {
+            color: #e94560;
+        }
+
+        .menuIcon {
+            width: 3rem;
+            height: 2rem;
+            position: relative;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menuIcon span {
+            display: block;
+            position: absolute;
+            height: 0.2rem;
+            width: 100%;
+            background: #fff;
+            border-radius: 0.2rem;
+            opacity: 1;
+            left: 0;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            -webkit-transition: .25s ease-in-out;
+            transition: .25s ease-in-out;
+        }
+
+        .menuIcon span:nth-child(1) { top: 0; }
+        .menuIcon span:nth-child(2) { top: 0.9rem; }
+        .menuIcon span:nth-child(3) { top: 1.8rem; }
+
+        /* ========================================
+           NAV
+           ======================================== */
+        .global-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 50%;
+            height: 100vh;
+            background: #16213e;
+            z-index: 999;
+            -webkit-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .global-nav.active {
+            right: 0;
+        }
+
+        .global-nav__list {
+            list-style: none;
+            text-align: center;
+        }
+
+        .global-nav__list li {
+            margin: 3rem 0;
+            opacity: 0;
+            -webkit-transform: translateY(2rem);
+            transform: translateY(2rem);
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .global-nav.active .global-nav__list li {
+            opacity: 1;
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+
+        .global-nav.active .global-nav__list li:nth-child(1) { -webkit-transition-delay: 0.1s; transition-delay: 0.1s; }
+        .global-nav.active .global-nav__list li:nth-child(2) { -webkit-transition-delay: 0.2s; transition-delay: 0.2s; }
+        .global-nav.active .global-nav__list li:nth-child(3) { -webkit-transition-delay: 0.3s; transition-delay: 0.3s; }
+        .global-nav.active .global-nav__list li:nth-child(4) { -webkit-transition-delay: 0.4s; transition-delay: 0.4s; }
+        .global-nav.active .global-nav__list li:nth-child(5) { -webkit-transition-delay: 0.5s; transition-delay: 0.5s; }
+
+        .global-nav__list li a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.2em;
+            font-weight: 300;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .global-nav__list li a:hover {
+            color: #e94560;
+        }
+
+        /* ========================================
+           SECTIONS
+           ======================================== */
+        .section {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fullpage__slide {
+            width: 100%;
+            height: 100vh;
+            max-height: 100vh;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            position: relative;
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        /* ========================================
+           TITLE STYLES
+           ======================================== */
+        .title {
+            position: absolute;
+            z-index: 10;
+            padding: 0 10%;
+            max-width: 50%;
+        }
+
+        .title--top {
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            left: 0;
+        }
+
+        .title__text {
+            font-family: 'Abril Fatface', serif;
+            font-size: clamp(3rem, 8vw, 8rem);
+            line-height: 0.9;
+            letter-spacing: 0.02em;
+            color: #fff;
+        }
+
+        .title .border {
+            width: 10rem;
+            height: 0.3rem;
+            background: #fff;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .title .border span {
+            display: block;
+            width: 0;
+            height: 100%;
+            background: #e94560;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .title__lead {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1rem, 1.5vw, 1.6rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        /* ========================================
+           MOON - EXACTO COMO idea.html
+           ======================================== */
+        .moon {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 29.427%;
+            margin: auto;
+            height: 80vh;
+            max-height: 1385px;
+            width: 80vh;
+            max-width: 1385px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .moon__img {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .moon__back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+
+        .moon__back svg {
+            width: 80%;
+            height: 80%;
+            -webkit-filter: drop-shadow(0 0 8rem rgba(233, 69, 96, 0.5));
+            filter: drop-shadow(0 0 8rem rgba(233, 69, 96, 0.5));
+        }
+
+        .moon__text-wrap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .moon__text {
+            font-family: 'Abril Fatface', serif;
+            font-size: clamp(2rem, 4vw, 4rem);
+            color: #fff;
+            opacity: 0.9;
+            letter-spacing: 0.3em;
+            white-space: nowrap;
+        }
+
+        .moon__front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cloud {
+            position: absolute;
+            opacity: 0.6;
+        }
+
+        .cloud svg {
+            width: 100%;
+            height: auto;
+            fill: rgba(255, 255, 255, 0.15);
+        }
+
+        .cloud--front1 { top: -15%; right: -25%; width: 35%; }
+        .cloud--front2 { top: 25%; right: -35%; width: 30%; }
+        .cloud--front3 { top: 55%; right: -20%; width: 25%; }
+        .cloud--back1 { top: 5%; right: 0%; width: 40%; opacity: 0.3; }
+        .cloud--back2 { top: 45%; right: 5%; width: 35%; opacity: 0.25; }
+
+        /* ========================================
+           SCROLL DOWN
+           ======================================== */
+        .scrollDown {
+            position: absolute;
+            bottom: 4rem;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: #828c96;
+            z-index: 100;
+            font-weight: 500;
+        }
+
+        .scrollDown::after {
+            content: '';
+            display: block;
+            width: 0.1rem;
+            height: 5rem;
+            background: linear-gradient(to bottom, #e94560, transparent);
+            margin: 1.5rem auto 0;
+        }
+
+        /* ========================================
+           CONTENT BOXES
+           ======================================== */
+        .content-right {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            width: 40%;
+            max-width: 50rem;
+            z-index: 10;
+        }
+
+        .content-center {
+            width: 100%;
+            height: 100%;
+            max-height: 100vh;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            overflow-y: auto;
+        }
+
+        /* ========================================
+           TEAM GRID
+           ======================================== */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 50rem;
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 0.1rem solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            -webkit-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover {
+            -webkit-transform: translateY(-1rem);
+            transform: translateY(-1rem);
+            border-color: #e94560;
+            background: rgba(233, 69, 96, 0.1);
+        }
+
+        .team-avatar {
+            width: 7rem;
+            height: 7rem;
+            background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            font-family: 'Abril Fatface', serif;
+            font-size: 1.8rem;
+        }
+
+        .team-name {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .team-id {
+            color: #828c96;
+            font-size: 0.9rem;
+        }
+
+        /* ========================================
+           STATS GRID
+           ======================================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 0.1rem solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Abril Fatface', serif;
+            font-size: 3rem;
+            color: #e94560;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #828c96;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        /* ========================================
+           TECH STACK
+           ======================================== */
+        .tech-stack {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tech-item {
+            padding: 1rem 1.8rem;
+            background: rgba(233, 69, 96, 0.1);
+            border: 0.1rem solid rgba(233, 69, 96, 0.3);
+            border-radius: 2.5rem;
+            font-size: 0.9rem;
+            color: #fff;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: #e94560;
+            color: #fff;
+        }
+
+        /* ========================================
+           ARCHITECTURE GRID
+           ======================================== */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 120rem;
+            width: 100%;
+        }
+
+        .arch-layer {
+            padding: 2.5rem 1.5rem;
+            border-radius: 2rem;
+            text-align: center;
+            -webkit-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .arch-layer:hover {
+            -webkit-transform: translateY(-1.5rem);
+            transform: translateY(-1.5rem);
+        }
+
+        .arch-layer h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .arch-items {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+
+        .arch-item {
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.8rem;
+            font-size: 0.75rem;
+            color: #fff;
+        }
+
+        .arch-view { background: rgba(52, 211, 153, 0.1); border: 0.1rem solid rgba(52, 211, 153, 0.3); }
+        .arch-view h3 { color: #34d399; }
+
+        .arch-controller { background: rgba(248, 113, 113, 0.1); border: 0.1rem solid rgba(248, 113, 113, 0.3); }
+        .arch-controller h3 { color: #f87171; }
+
+        .arch-model { background: rgba(6, 182, 212, 0.1); border: 0.1rem solid rgba(6, 182, 212, 0.3); }
+        .arch-model h3 { color: #06b6d4; }
+
+        .arch-db { background: rgba(139, 92, 246, 0.1); border: 0.1rem solid rgba(139, 92, 246, 0.3); }
+        .arch-db h3 { color: #a78bfa; }
+
+        /* ========================================
+           CLASSES GRID
+           ======================================== */
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            max-width: 100rem;
+            width: 100%;
+        }
+
+        .class-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 0.1rem solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.6rem;
+            padding: 2rem 1rem;
+            text-align: center;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .class-card:hover {
+            border-color: #e94560;
+            -webkit-transform: translateY(-0.8rem);
+            transform: translateY(-0.8rem);
+            background: rgba(233, 69, 96, 0.05);
+        }
+
+        .class-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #e94560;
+        }
+
+        .class-attrs {
+            font-size: 0.7rem;
+            color: #828c96;
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           DIAGRAMS GRID
+           ======================================== */
+        .diagrams-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 100rem;
+            width: 100%;
+        }
+
+        .diagram-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 0.1rem solid rgba(255, 255, 255, 0.08);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            text-align: center;
+            -webkit-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .diagram-card:hover {
+            border-color: #e94560;
+            -webkit-transform: translateY(-1rem);
+            transform: translateY(-1rem);
+        }
+
+        .diagram-icon {
+            width: 6rem;
+            height: 6rem;
+            background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+            border-radius: 1.5rem;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .diagram-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .diagram-card p {
+            font-size: 0.9rem;
+            color: #828c96;
+        }
+
+        /* ========================================
+           REQ LIST
+           ======================================== */
+        .req-list {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            gap: 1.2rem;
+            max-width: 60rem;
+        }
+
+        .req-item {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 0.1rem solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.2rem;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .req-item:hover {
+            border-color: #e94560;
+            background: rgba(233, 69, 96, 0.05);
+        }
+
+        .req-code {
+            font-family: 'Abril Fatface', serif;
+            font-size: 1.4rem;
+            color: #e94560;
+            min-width: 8rem;
+        }
+
+        .req-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .req-info p {
+            font-size: 0.85rem;
+            color: #828c96;
+        }
+
+        .req-priority {
+            padding: 0.5rem 1.2rem;
+            border-radius: 1.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .priority-high { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .priority-medium { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+
+        /* ========================================
+           UC GRID
+           ======================================== */
+        .uc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 120rem;
+            width: 100%;
+            padding: 0 4rem;
+        }
+
+        .uc-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 0.1rem solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.6rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .uc-card::before {
+            content: attr(data-number);
+            position: absolute;
+            top: -1rem;
+            right: -1rem;
+            font-family: 'Abril Fatface', serif;
+            font-size: 5rem;
+            color: #e94560;
+            opacity: 0.1;
+            line-height: 1;
+        }
+
+        .uc-card:hover {
+            border-color: #e94560;
+            -webkit-transform: translateY(-0.8rem);
+            transform: translateY(-0.8rem);
+        }
+
+        .uc-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            color: #e94560;
+        }
+
+        .uc-actor {
+            font-size: 0.8rem;
+            color: #828c96;
+            margin-bottom: 1rem;
+        }
+
+        .uc-desc {
+            font-size: 0.85rem;
+            color: #fff;
+            opacity: 0.7;
+            line-height: 1.5;
+        }
+
+        /* ========================================
+           ENTITIES GRID
+           ======================================== */
+        .entities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 80rem;
+        }
+
+        .entity-card {
+            padding: 1.8rem;
+            border-radius: 1.2rem;
+            text-align: center;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .entity-card:hover {
+            -webkit-transform: translateY(-0.5rem);
+            transform: translateY(-0.5rem);
+        }
+
+        .entity-card h4 {
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .entity-card p {
+            font-size: 0.85rem;
+            color: #828c96;
+        }
+
+        .entity-user { background: rgba(52, 211, 153, 0.1); border: 0.1rem solid rgba(52, 211, 153, 0.3); }
+        .entity-user h4 { color: #34d399; }
+
+        .entity-provider { background: rgba(6, 182, 212, 0.1); border: 0.1rem solid rgba(6, 182, 212, 0.3); }
+        .entity-provider h4 { color: #06b6d4; }
+
+        .entity-category { background: rgba(139, 92, 246, 0.1); border: 0.1rem solid rgba(139, 92, 246, 0.3); }
+        .entity-category h4 { color: #a78bfa; }
+
+        .entity-product { background: rgba(251, 191, 36, 0.1); border: 0.1rem solid rgba(251, 191, 36, 0.3); }
+        .entity-product h4 { color: #fbbf24; }
+
+        .entity-purchase { background: rgba(52, 211, 153, 0.1); border: 0.1rem solid rgba(52, 211, 153, 0.3); }
+        .entity-purchase h4 { color: #34d399; }
+
+        .entity-sale { background: rgba(248, 113, 113, 0.1); border: 0.1rem solid rgba(248, 113, 113, 0.3); }
+        .entity-sale h4 { color: #f87171; }
+
+        /* ========================================
+           DOC GRID
+           ======================================== */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            max-width: 60rem;
+        }
+
+        .doc-item {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 0.1rem solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .doc-item:hover {
+            border-color: #e94560;
+            background: rgba(233, 69, 96, 0.05);
+        }
+
+        .doc-icon {
+            width: 4rem;
+            height: 4rem;
+            background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+            border-radius: 1rem;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+        }
+
+        .doc-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .doc-info p {
+            font-size: 0.75rem;
+            color: #828c96;
+        }
+
+        /* ========================================
+           CONTACT
+           ======================================== */
+        .contact-content {
+            text-align: center;
+            max-width: 80rem;
+        }
+
+        .contact-content h2 {
+            font-family: 'Abril Fatface', serif;
+            font-size: clamp(3rem, 8vw, 8rem);
+            line-height: 1;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+            color: #fff;
+            opacity: 0.8;
+            line-height: 2;
+            margin-bottom: 4rem;
+        }
+
+        .contact-info a {
+            color: #e94560;
+            text-decoration: none;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #fff;
+        }
+
+        .social-links {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-link {
+            width: 5rem;
+            height: 5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 0.1rem solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #fff;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #e94560;
+            border-color: #e94560;
+            -webkit-transform: translateY(-0.5rem);
+            transform: translateY(-0.5rem);
+        }
+
+        /* ========================================
+           AWWWARDS
+           ======================================== */
+        .honorable {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+
+        .honorable a {
+            display: block;
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        /* ========================================
+           RESPONSIVE - ENHANCED
+           ======================================== */
+        @media (max-width: 1200px) {
+            .arch-grid { grid-template-columns: repeat(2, 1fr); }
+            .classes-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+            .uc-grid { grid-template-columns: repeat(2, 1fr); }
+            .diagrams-grid { grid-template-columns: repeat(2, 1fr); }
+            .content-right { width: 85%; right: 7.5%; }
+        }
+
+        @media (max-width: 900px) {
+            header { padding: 1.5rem 2rem; }
+            header .name { font-size: 1.4rem; }
+            
+            .title {
+                max-width: 90%;
+                padding: 0 5%;
+            }
+            
+            .moon {
+                left: 50%;
+                -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+                width: 50vh;
+                height: 50vh;
+            }
+            
+            .content-right {
+                width: 90%;
+                right: 5%;
+                top: 55%;
+            }
+            
+            .arch-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+            .arch-layer { padding: 2rem 1rem; }
+            .arch-layer h3 { font-size: 1rem; }
+            .arch-item { font-size: 0.7rem; padding: 0.5rem 0.8rem; }
+            
+            .classes-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .class-card { padding: 1.2rem 0.8rem; }
+            .class-card h4 { font-size: 0.9rem; }
+            .class-card p { font-size: 0.7rem; }
+            
+            .uc-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .uc-item { padding: 1.2rem; }
+            .uc-name { font-size: 1rem; }
+            .uc-desc { font-size: 0.8rem; }
+            
+            .entities-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .entity-card { padding: 1.2rem; }
+            .entity-card h4 { font-size: 0.9rem; }
+            .entity-card p { font-size: 0.7rem; }
+            
+            .doc-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .doc-item { padding: 1rem; }
+            
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .stat-box { padding: 1.5rem 1rem; }
+            .stat-number { font-size: 2.5rem; }
+            .stat-label { font-size: 0.7rem; }
+            
+            .req-grid { gap: 1rem; }
+            .req-item { padding: 1rem; }
+            .req-code { font-size: 0.8rem; padding: 0.4rem 0.8rem; }
+            .req-title { font-size: 0.9rem; }
+            
+            .diagrams-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .diagram-card { padding: 1.5rem 1rem; }
+            
+            .team-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .team-card { padding: 1.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            html { font-size: 55%; }
+            body { font-size: 1.4rem; }
+            
+            header { padding: 1rem 1.5rem; }
+            header .name { font-size: 1.2rem; }
+            header .icons { display: none; }
+            
+            .title__text { font-size: clamp(2rem, 6vw, 3rem); }
+            .title .border { width: 5rem; margin: 1rem 0; }
+            .title__lead { font-size: 0.85rem; letter-spacing: 0.15em; }
+            
+            .moon { width: 35vh; height: 35vh; }
+            .moon__text { font-size: 1.2rem; }
+            
+            .team-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .team-card { padding: 1.5rem; }
+            .team-avatar { width: 5rem; height: 5rem; font-size: 1.4rem; }
+            .team-name { font-size: 1rem; }
+            
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+            .stat-box { padding: 1.2rem 0.8rem; border-radius: 1rem; }
+            .stat-number { font-size: 2rem; }
+            .stat-label { font-size: 0.65rem; }
+            
+            .tech-stack { gap: 0.6rem; justify-content: center; }
+            .tech-item { padding: 0.6rem 1rem; font-size: 0.75rem; }
+            
+            .project-desc { font-size: 0.9rem; line-height: 1.6; }
+            .project-desc h3 { font-size: 1.3rem; }
+            
+            .arch-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .arch-layer { padding: 1.5rem 1rem; border-radius: 1.2rem; }
+            .arch-layer h3 { font-size: 1rem; margin-bottom: 1rem; }
+            .arch-items { gap: 0.5rem; }
+            .arch-item { font-size: 0.65rem; padding: 0.4rem 0.6rem; }
+            
+            .classes-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+            .class-card { padding: 1.2rem 1rem; border-radius: 1rem; }
+            .class-card h4 { font-size: 0.9rem; }
+            .class-card p { font-size: 0.7rem; }
+            .class-methods span { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
+            
+            .diagrams-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+            .diagram-card { padding: 1.5rem 1rem; border-radius: 1rem; }
+            .diagram-icon { width: 3.5rem; height: 3.5rem; font-size: 1.3rem; }
+            .diagram-name { font-size: 0.9rem; }
+            
+            .req-grid { gap: 0.8rem; }
+            .req-item { flex-direction: column; text-align: center; gap: 0.8rem; padding: 1rem; border-radius: 1rem; }
+            .req-code { min-width: auto; font-size: 0.7rem; padding: 0.3rem 0.6rem; }
+            .req-title { font-size: 0.85rem; }
+            
+            .uc-grid { gap: 0.8rem; }
+            .uc-item { padding: 1rem; border-radius: 1rem; }
+            .uc-name { font-size: 0.9rem; }
+            .uc-desc { font-size: 0.75rem; }
+            
+            .entities-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+            .entity-card { padding: 1rem; border-radius: 1rem; }
+            .entity-card h4 { font-size: 0.85rem; }
+            .entity-card p { font-size: 0.7rem; }
+            
+            .doc-grid { gap: 0.8rem; }
+            .doc-item { padding: 1rem; border-radius: 1rem; flex-direction: column; text-align: center; gap: 0.8rem; }
+            .doc-icon { font-size: 1.5rem; }
+            .doc-info h4 { font-size: 0.9rem; }
+            .doc-info p { font-size: 0.7rem; }
+            
+            .contact-content h2 { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+            .contact-info { font-size: 0.85rem; line-height: 1.8; }
+            .social-link { width: 3.5rem; height: 3.5rem; font-size: 0.9rem; }
+            
+            .scrollDown { bottom: 2rem; font-size: 0.7rem; }
+            .scrollDown::after { height: 3rem; }
+            
+            .honorable a { width: 4rem; height: 4rem; font-size: 0.5rem; }
+            
+            .fullpage__slide { min-height: 100vh; padding: 8rem 1.5rem 4rem; }
+            .content-center { padding: 2rem 1rem; }
+            .content-right { 
+                width: 95%; 
+                right: 2.5%; 
+                top: 50%;
+                transform: translateY(-5%);
+            }
+        }
+
+        @media (max-width: 400px) {
+            html { font-size: 50%; }
+            
+            .title__text { font-size: 2rem; }
+            .stat-number { font-size: 1.8rem; }
+            .team-avatar { width: 4rem; height: 4rem; font-size: 1.2rem; }
+        }
+
+        /* ========================================
+           MERRIGHT
+           ======================================== */
+        .mermaid {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            background: transparent !important;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a class="name" href="./">FARMACIA SANTA CRUZ</a>
+        <div class="wrap">
+            <div class="icons">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <div class="menuIcon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <nav class="global-nav">
+            <ul class="global-nav__list">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#team">EQUIPO</a></li>
+                <li><a href="#project">PROYECTO</a></li>
+                <li><a href="#architecture">ARQUITECTURA</a></li>
+                <li><a href="#contact">CONTACTO</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Awwwards -->
+    <div class="honorable">
+        <a href="http://www.awwwards.com" target="_blank">Awwwards</a>
+    </div>
+
+    <!-- FullPage -->
+    <div id="fullpage">
+        
+        <!-- SECTION 1: HERO -->
+        <div class="section" data-anchor="home">
+            <div class="fullpage__slide">
+                <div class="title title--top">
+                    <h1 class="title__text">FARMACIA<br>SANTA CRUZ</h1>
+                    <div class="border"><span></span></div>
+                    <p class="title__lead">Sistema de Inventario | Desarrollo de Software</p>
+                </div>
+                
+                <div class="moon">
+                    <div class="moon__img">
+                        <div class="moon__back">
+                            <svg viewBox="0 0 200 200">
+                                <defs>
+                                    <radialGradient id="moonGrad" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="#fff5f5"/>
+                                        <stop offset="100%" stop-color="#e8e8e8"/>
+                                    </radialGradient>
+                                </defs>
+                                <circle cx="100" cy="100" r="80" fill="url(#moonGrad)"/>
+                            </svg>
+                        </div>
+                        <div class="moon__text-wrap">
+                            <p class="moon__text">PORTFOLIO</p>
+                        </div>
+                        <div class="moon__front cloud--front1">
+                            <svg viewBox="0 0 100 40"><path d="M10 20 Q25 5 40 20 Q55 35 70 20 Q85 5 100 20" fill="rgba(255,255,255,0.12)"/></svg>
+                        </div>
+                        <div class="moon__front cloud--front2">
+                            <svg viewBox="0 0 100 40"><path d="M10 20 Q25 5 40 20 Q55 35 70 20 Q85 5 100 20" fill="rgba(255,255,255,0.1)"/></svg>
+                        </div>
+                        <div class="moon__front cloud--front3">
+                            <svg viewBox="0 0 100 40"><path d="M10 20 Q25 5 40 20 Q55 35 70 20 Q85 5 100 20" fill="rgba(255,255,255,0.08)"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="scrollDown">SCROLLDOWN</p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: TEAM -->
+        <div class="section" data-anchor="team">
+            <div class="fullpage__slide" style="background: linear-gradient(135deg, #16213e 0%, #1a1a2e 50%, #0f3460 100%);">
+                <div class="title">
+                    <h2 class="title__text">EQUIPO DE<br>TRABAJO</h2>
+                    <div class="border"><span></span></div>
+                    <p class="title__lead">4 estudiantes comprometidos</p>
+                </div>
+                
+                <div class="content-right">
+                    <div class="team-grid">
+                        <div class="team-card">
+                            <div class="team-avatar">SL</div>
+                            <div class="team-name">Stiven Gabriel López</div>
+                            <div class="team-id">#04</div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-avatar">JM</div>
+                            <div class="team-name">Joel Edgardo Mendoza</div>
+                            <div class="team-id">#08</div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-avatar">GR</div>
+                            <div class="team-name">Guadalupe Abigaíl Romero</div>
+                            <div class="team-id">#32</div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-avatar">TS</div>
+                            <div class="team-name">Tiffany Alessandra Sermeño</div>
+                            <div class="team-id">#34</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="scrollDown">SCROLLDOWN</p>
+            </div>
+        </div>
+
+        <!-- SECTION 3: PROJECT -->
+        <div class="section" data-anchor="project">
+            <div class="fullpage__slide" style="background: linear-gradient(180deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);">
+                <div class="title">
+                    <h2 class="title__text">SISTEMA DE<br>INVENTARIO</h2>
+                    <div class="border"><span></span></div>
+                    <p class="title__lead">Solución tecnológica para Farmacia Santa Cruz</p>
+                </div>
+                
+                <div class="content-right">
+                    <p style="font-size: 1rem; line-height: 1.8; color: #fff; opacity: 0.8; margin-bottom: 2rem;">
+                        Sistema digital de inventario para gestionar $12,000 anuales en medicamentos con control de stock, alertas de caducidad y reportes.
+                    </p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Requisitos</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Casos Uso</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">10</div>
+                            <div class="stat-label">Clases</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">9</div>
+                            <div class="stat-label">Tablas BD</div>
+                        </div>
+                    </div>
+
+                    <div class="tech-stack">
+                        <span class="tech-item"><i class="fab fa-python"></i> Python</span>
+                        <span class="tech-item"><i class="fas fa-desktop"></i> Tkinter</span>
+                        <span class="tech-item"><i class="fas fa-database"></i> SQLite</span>
+                        <span class="tech-item"><i class="fas fa-file-pdf"></i> ReportLab</span>
+                        <span class="tech-item"><i class="fas fa-project-diagram"></i> PlantUML</span>
+                    </div>
+                </div>
+
+                <p class="scrollDown">SCROLLDOWN</p>
+            </div>
+        </div>
+
+        <!-- SECTION 4: ARCHITECTURE -->
+        <div class="section" data-anchor="architecture">
+            <div class="fullpage__slide" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0a0a0f 100%);">
+                <div class="content-center">
+                    <h2 style="font-family: 'Abril Fatface', serif; font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 4rem; text-align: center;">Arquitectura MVC</h2>
+                    
+                    <div class="arch-grid">
+                        <div class="arch-layer arch-view">
+                            <h3>🎨 VISTA</h3>
+                            <div class="arch-items">
+                                <span class="arch-item">Login</span>
+                                <span class="arch-item">Dashboard</span>
+                                <span class="arch-item">Productos</span>
+                                <span class="arch-item">Compras</span>
+                                <span class="arch-item">Ventas</span>
+                                <span class="arch-item">Alertas</span>
+                            </div>
+                        </div>
+                        
+                        <div class="arch-layer arch-controller">
+                            <h3>⚙️ CONTROL</h3>
+                            <div class="arch-items">
+                                <span class="arch-item">AuthController</span>
+                                <span class="arch-item">ProductoController</span>
+                                <span class="arch-item">CompraController</span>
+                                <span class="arch-item">VentaController</span>
+                                <span class="arch-item">AlertaController</span>
+                            </div>
+                        </div>
+                        
+                        <div class="arch-layer arch-model">
+                            <h3>📊 MODELO</h3>
+                            <div class="arch-items">
+                                <span class="arch-item">Usuario</span>
+                                <span class="arch-item">Producto</span>
+                                <span class="arch-item">Compra</span>
+                                <span class="arch-item">Venta</span>
+                                <span class="arch-item">Alerta</span>
+                            </div>
+                        </div>
+                        
+                        <div class="arch-layer arch-db">
+                            <h3>💾 BASE DATOS</h3>
+                            <div class="arch-items">
+                                <span class="arch-item">9 Tablas</span>
+                                <span class="arch-item">Relaciones 1:N</span>
+                                <span class="arch-item">SQLite</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: CLASSES -->
+        <div class="section" data-anchor="classes">
+            <div class="fullpage__slide" style="background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);">
+                <div class="content-center">
+                    <h2 style="font-family: 'Abril Fatface', serif; font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 4rem; text-align: center;">Diagrama de Clases</h2>
+                    
+                    <div class="classes-grid">
+                        <div class="class-card">
+                            <div class="class-name">Usuario</div>
+                            <div class="class-attrs">id, nombre, usuario, contraseña, rol, activo</div>
+                        </div>
+                        <div class="class-card">
+                            <div class="class-name">Proveedor</div>
+                            <div class="class-attrs">id, nombre, contacto, teléfono, email</div>
+                        </div>
+                        <div class="class-card">
+                            <div class="class-name">Categoría</div>
+                            <div class="class-attrs">id, nombre, descripción, activo</div>
+                        </div>
+                        <div class="class-card">
+                            <div class="class-name">Producto</div>
+                            <div class="class-attrs">código, nombre, precios, stock, vencimiento</div>
+                        </div>
+                        <div class="class-card">
+                            <div class="class-name">Compra</div>
+                            <div class="class-attrs">id, proveedor, usuario, total, métodoPago</div>
+                        </div>
+                        <div class="class-card">
+                            <div class="class-name">DetalleCompra</div>
+                            <div class="class-attrs">id, compra, producto, cantidad, precio</div>
+                        </div>
+                        <div class="class-card">
+                            <div class="class-name">Venta</div>
+                            <div class="class-attrs">id, usuario, total, métodoPago</div>
+                        </div>
+                        <div class="class-card">
+                            <div class="class-name">DetalleVenta</div>
+                            <div class="class-attrs">id, venta, producto, cantidad, precio</div>
+                        </div>
+                        <div class="class-card">
+                            <div class="class-name">Alerta</div>
+                            <div class="class-attrs">id, producto, tipo, mensaje, leída</div>
+                        </div>
+                        <div class="class-card">
+                            <div class="class-name">Reporte</div>
+                            <div class="class-attrs">id, tipo, fechaGeneración</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: DIAGRAMS -->
+        <div class="section" data-anchor="diagrams">
+            <div class="fullpage__slide" style="background: linear-gradient(180deg, #16213e 0%, #0f3460 50%, #1a1a2e 100%);">
+                <div class="content-center">
+                    <h2 style="font-family: 'Abril Fatface', serif; font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 4rem; text-align: center;">Diagramas del Sistema</h2>
+                    
+                    <div class="diagrams-grid">
+                        <div class="diagram-card">
+                            <div class="diagram-icon">🏗️</div>
+                            <h3>Arquitectura</h3>
+                            <p>Componentes MVC</p>
+                        </div>
+                        <div class="diagram-card">
+                            <div class="diagram-icon">📊</div>
+                            <h3>Clases</h3>
+                            <p>10 clases UML</p>
+                        </div>
+                        <div class="diagram-card">
+                            <div class="diagram-icon">🔗</div>
+                            <h3>DER</h3>
+                            <p>Entidad-Relación</p>
+                        </div>
+                        <div class="diagram-card">
+                            <div class="diagram-icon">📋</div>
+                            <h3>Casos de Uso</h3>
+                            <p>7 casos</p>
+                        </div>
+                        <div class="diagram-card">
+                            <div class="diagram-icon">🔄</div>
+                            <h3>Secuencia</h3>
+                            <p>Diagramas detallados</p>
+                        </div>
+                        <div class="diagram-card">
+                            <div class="diagram-icon">🌐</div>
+                            <h3>Contexto</h3>
+                            <p>Diagrama de contexto</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 7: REQUIREMENTS -->
+        <div class="section" data-anchor="requirements">
+            <div class="fullpage__slide" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+                <div class="title">
+                    <h2 class="title__text">REQUISITOS</h2>
+                    <div class="border"><span></span></div>
+                    <p class="title__lead">7 requisitos funcionales</p>
+                </div>
+                
+                <div class="content-right">
+                    <div class="req-list">
+                        <div class="req-item">
+                            <span class="req-code">RF-001</span>
+                            <div class="req-info">
+                                <h4>Inicio de Sesión</h4>
+                                <p>Acceso con usuario y contraseña</p>
+                            </div>
+                            <span class="req-priority priority-high">ALTA</span>
+                        </div>
+                        <div class="req-item">
+                            <span class="req-code">RF-002</span>
+                            <div class="req-info">
+                                <h4>Registrar Productos</h4>
+                                <p>Registro de medicamentos</p>
+                            </div>
+                            <span class="req-priority priority-high">ALTA</span>
+                        </div>
+                        <div class="req-item">
+                            <span class="req-code">RF-003</span>
+                            <div class="req-info">
+                                <h4>Registrar Compras</h4>
+                                <p>Compra a proveedores</p>
+                            </div>
+                            <span class="req-priority priority-high">ALTA</span>
+                        </div>
+                        <div class="req-item">
+                            <span class="req-code">RF-004</span>
+                            <div class="req-info">
+                                <h4>Registrar Ventas</h4>
+                                <p>Ventas con factura</p>
+                            </div>
+                            <span class="req-priority priority-high">ALTA</span>
+                        </div>
+                        <div class="req-item">
+                            <span class="req-code">RF-005</span>
+                            <div class="req-info">
+                                <h4>Monitoreo de Costos</h4>
+                                <p>Detectar cambios de precio</p>
+                            </div>
+                            <span class="req-priority priority-medium">MEDIA</span>
+                        </div>
+                        <div class="req-item">
+                            <span class="req-code">RF-006</span>
+                            <div class="req-info">
+                                <h4>Alerta de Caducidad</h4>
+                                <p>Productos próximos a vencer</p>
+                            </div>
+                            <span class="req-priority priority-high">ALTA</span>
+                        </div>
+                        <div class="req-item">
+                            <span class="req-code">RF-007</span>
+                            <div class="req-info">
+                                <h4>Generar Reportes</h4>
+                                <p>Reportes de inventario</p>
+                            </div>
+                            <span class="req-priority priority-medium">MEDIA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 8: USE CASES -->
+        <div class="section" data-anchor="usecases">
+            <div class="fullpage__slide" style="background: linear-gradient(180deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);">
+                <div class="content-center">
+                    <h2 style="font-family: 'Abril Fatface', serif; font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 4rem;">Casos de Uso</h2>
+                    
+                    <div class="uc-grid">
+                        <div class="uc-card" data-number="01">
+                            <div class="uc-title">CU-01: Inicio de Sesión</div>
+                            <div class="uc-actor">Actor: Admin, Vendedor</div>
+                            <div class="uc-desc">Validar credenciales y asignar permisos</div>
+                        </div>
+                        <div class="uc-card" data-number="02">
+                            <div class="uc-title">CU-02: Registrar Productos</div>
+                            <div class="uc-actor">Actor: Administrador</div>
+                            <div class="uc-desc">Registro de medicamentos</div>
+                        </div>
+                        <div class="uc-card" data-number="03">
+                            <div class="uc-title">CU-03: Registrar Compras</div>
+                            <div class="uc-actor">Actor: Administrador</div>
+                            <div class="uc-desc">Compra a proveedores</div>
+                        </div>
+                        <div class="uc-card" data-number="04">
+                            <div class="uc-title">CU-04: Registrar Ventas</div>
+                            <div class="uc-actor">Actor: Vendedor</div>
+                            <div class="uc-desc">Ventas con factura</div>
+                        </div>
+                        <div class="uc-card" data-number="05">
+                            <div class="uc-title">CU-05: Monitoreo de Costos</div>
+                            <div class="uc-actor">Actor: Administrador</div>
+                            <div class="uc-desc">Detectar cambios de precio</div>
+                        </div>
+                        <div class="uc-card" data-number="06">
+                            <div class="uc-title">CU-06: Alerta de Caducidad</div>
+                            <div class="uc-actor">Actor: Administrador</div>
+                            <div class="uc-desc">Productos próximos a vencer</div>
+                        </div>
+                        <div class="uc-card" data-number="07">
+                            <div class="uc-title">CU-07: Generar Reportes</div>
+                            <div class="uc-actor">Actor: Administrador</div>
+                            <div class="uc-desc">Reportes de inventario</div>
+                        </div>
+                        <div class="uc-card" data-number="08">
+                            <div class="uc-title">+ Gestión de Categorías</div>
+                            <div class="uc-actor">Actor: Administrador</div>
+                            <div class="uc-desc">Crear/editar categorías</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 9: DER -->
+        <div class="section" data-anchor="der">
+            <div class="fullpage__slide" style="background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0f 100%);">
+                <div class="content-center">
+                    <h2 style="font-family: 'Abril Fatface', serif; font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 4rem;">Diagrama Entidad-Relación</h2>
+                    
+                    <div class="entities-grid">
+                        <div class="entity-card entity-user">
+                            <h4>Usuario</h4>
+                            <p>Admin, Vendedor</p>
+                        </div>
+                        <div class="entity-card entity-provider">
+                            <h4>Proveedor</h4>
+                            <p>Distribuidores</p>
+                        </div>
+                        <div class="entity-card entity-category">
+                            <h4>Categoría</h4>
+                            <p>Clasificación</p>
+                        </div>
+                        <div class="entity-card entity-product">
+                            <h4>Producto</h4>
+                            <p>Medicamentos</p>
+                        </div>
+                        <div class="entity-card entity-purchase">
+                            <h4>Compra</h4>
+                            <p>Orden de compra</p>
+                        </div>
+                        <div class="entity-card entity-sale">
+                            <h4>Venta</h4>
+                            <p>Registro de venta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 10: DOCUMENTS -->
+        <div class="section" data-anchor="documents">
+            <div class="fullpage__slide" style="background: linear-gradient(180deg, #0a0a0f 0%, #16213e 50%, #1a1a2e 100%);">
+                <div class="title">
+                    <h2 class="title__text">DOCUMENTOS</h2>
+                    <div class="border"><span></span></div>
+                    <p class="title__lead">8 archivos de documentación</p>
+                </div>
+                
+                <div class="content-right">
+                    <div class="doc-grid">
+                        <div class="doc-item">
+                            <div class="doc-icon">📋</div>
+                            <div class="doc-info">
+                                <h4>ARQUITECTURA_SOFTWARE.html</h4>
+                                <p>Diagrama de Componentes MVC</p>
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">🏗️</div>
+                            <div class="doc-info">
+                                <h4>DIAGRAMA_CLASES.html</h4>
+                                <p>Modelo de Clases UML</p>
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">📖</div>
+                            <div class="doc-info">
+                                <h4>DICCIONARIO_DATOS.html</h4>
+                                <p>Diccionario de Datos</p>
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">🔗</div>
+                            <div class="doc-info">
+                                <h4>DER_FARMACIA.html</h4>
+                                <p>Diagrama Entidad-Relación</p>
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">📦</div>
+                            <div class="doc-info">
+                                <h4>inventario_farmacia.html</h4>
+                                <p>Documento Principal</p>
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">📝</div>
+                            <div class="doc-info">
+                                <h4>PLAN_COMPLETO.md</h4>
+                                <p>Plan del Proyecto</p>
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">📜</div>
+                            <div class="doc-info">
+                                <h4>REGISTRO_CAMBIOS.md</h4>
+                                <p>Registro de Cambios</p>
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">✅</div>
+                            <div class="doc-info">
+                                <h4>RF_LOGICOS.md</h4>
+                                <p>Requisitos Funcionales</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 11: CONTACT -->
+        <div class="section" data-anchor="contact">
+            <div class="fullpage__slide" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0a0a0f 100%);">
+                <div class="content-center">
+                    <div class="contact-content">
+                        <h2>GRACIAS POR<br>VER NUESTRO<br>PROYECTO</h2>
+                        
+                        <div class="contact-info">
+                            <p>Instituto Nacional de San Martín</p>
+                            <p>2° Bachillerato Técnico en Desarrollo de Software "B"</p>
+                            <p>Docente: María Magdalena García González</p>
+                            <p>Marzo 2026 | San Martín, El Salvador</p>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <script>
+        // Menu Toggle
+        $('.menuIcon').on('click', function() {
+            $(this).toggleClass('active');
+            $('.global-nav').toggleClass('active');
+        });
+
+        // FullPage.js
+        new fullpage('#fullpage', {
+            navigation: true,
+            navigationPosition: 'right',
+            navigationTooltips: ['Home', 'Equipo', 'Proyecto', 'Arquitectura', 'Clases', 'Diagramas', 'Requisitos', 'Casos Uso', 'DER', 'Documentos', 'Contacto'],
+            showActiveTooltip: true,
+            scrollingSpeed: 1000,
+            autoScrolling: true,
+            fitToSection: true,
+            loopBottom: false,
+            loopTop: false,
+            scrollOverflow: true,
+            lazyLoad: true,
+            credits: { enabled: false }
+        });
+
+        // Parallax
+        document.addEventListener('mousemove', function(e) {
+            const moon = document.querySelector('.moon');
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            if (moon) {
+                moon.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            }
+        });
+
+        // Animations
+        anime({
+            targets: '.title__text',
+            opacity: [0, 1],
+            translateY: [50, 0],
+            duration: 1500,
+            easing: 'easeOutExpo',
+            delay: anime.stagger(200)
+        });
+
+        anime({
+            targets: '.team-card',
+            opacity: [0, 1],
+            translateY: [30, 0],
+            duration: 1000,
+            easing: 'easeOutExpo',
+            delay: anime.stagger(100)
+        });
+    </script>
+</body>
+</html>

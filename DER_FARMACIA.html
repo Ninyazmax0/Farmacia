@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DER - Farmacia Santa Cruz</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.5; color: #333; background: #f5f5f5; padding: 30px; }
+        .document { max-width: 1200px; margin: 0 auto; background: white; box-shadow: 0 0 20px rgba(0,0,0,0.1); padding: 40px; }
+        .cover { text-align: center; margin-bottom: 50px; padding: 40px 20px; border-bottom: 3px solid #000; }
+        .cover h1 { font-size: 28px; margin: 25px 0; text-transform: uppercase; font-weight: bold; }
+        .cover h2 { font-size: 22px; margin: 20px 0; }
+        .section { margin: 50px 0; page-break-inside: avoid; clear: both; }
+        .section-title { font-size: 24px; font-weight: bold; margin: 30px 0 20px 0; padding-bottom: 8px; border-bottom: 3px solid #000; text-transform: uppercase; letter-spacing: 1px; }
+        .subsection-title { font-size: 20px; font-weight: bold; margin: 25px 0 15px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 14px; }
+        th { background: #2c3e50; color: white; font-weight: bold; text-align: left; padding: 12px; border: 1px solid #000; }
+        td { padding: 12px; border: 1px solid #000; vertical-align: top; }
+        .info-box { border: 2px solid #000; padding: 25px; margin: 25px 0; background: #f9f9f9; }
+        ul { margin: 15px 0 15px 30px; }
+        li { margin: 8px 0; }
+        .diagram-container { 
+            margin: 40px 0; 
+            text-align: center; 
+            background: #ffffff; 
+            border-radius: 10px; 
+            overflow-x: auto; 
+            padding: 30px 20px; 
+            border: 2px solid #2c3e50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .diagram-container pre.mermaid {
+            background: transparent !important;
+            padding: 0;
+            margin: 0;
+        }
+        .diagram-caption { 
+            text-align: center; 
+            font-style: italic; 
+            margin: 20px 0 0 0; 
+            font-size: 14px; 
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+        .code-block { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 5px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.4; margin: 20px 0; }
+        .code-block pre { margin: 0; }
+        @media print {
+            body { padding: 0; }
+            .document { box-shadow: none; padding: 20px; }
+            .diagram-container { border: none; background: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="document">
+
+    <!-- PORTADA -->
+    <div class="cover">
+        <div style="font-size: 20px; font-weight: bold;">INSTITUTO NACIONAL DE SAN MARTÍN</div>
+        <h2>2° BACHILLERATO TÉCNICO EN DESARROLLO DE SOFTWARE "B"</h2>
+        <div style="font-size: 18px; margin: 15px 0;">DISEÑO DE SISTEMA</div>
+        <div style="font-size: 18px; margin: 10px 0;">DESARROLLO DEL DISEÑO DE PROTOTIPO DE</div>
+        <div style="font-size: 18px; margin: 10px 0;">INVENTARIADO FARMACÉUTICO DE LA FARMACIA</div>
+        <div style="font-size: 18px; margin: 10px 0;">SANTA CRUZ</div>
+        <div style="font-size: 18px; margin: 20px 0;">GRUPO N°: 7</div>
+        <div style="font-size: 16px; margin: 10px 0;">Stiven Gabriel López Hernández #04</div>
+        <div style="font-size: 16px; margin: 5px 0;">Joel Edgardo Mendoza López #08</div>
+        <div style="font-size: 16px; margin: 5px 0;">Guadalupe Abigaíl Romero Pedreza #32</div>
+        <div style="font-size: 16px; margin: 5px 0;">Tiffany Alessandra Sermeño Flores #34</div>
+        <div style="font-size: 16px; margin: 15px 0;">DOCENTE: Maria Magdalena García González</div>
+        <div style="margin-top: 40px; font-size: 18px;">
+            <div>Marzo 2026, San Martín, San Salvador, El Salvador</div>
+        </div>
+    </div>
+
+    <!-- ESCENARIO -->
+    <div class="section">
+        <div class="section-title">ESCENARIO DE LA SITUACIÓN PROBLEMÁTICA</div>
+        <div class="info-box">
+            <p style="font-size: 16px; margin-bottom: 20px;">La Farmacia Santa Cruz es un establecimiento comercial local ubicado en el pasaje parroquial y avenida norte, San Martín Norte. La farmacia gestiona anualmente <strong>$12,000 en medicamentos y productos de uso personal</strong>. Sin embargo, su modelo de registro manual le ha causado distintos conflictos:</p>
+            <ul>
+                <li><strong>Pérdida económica de $400</strong> en los últimos 2 años debido a productos vencidos no detectados a tiempo</li>
+                <li><strong>Dificultad para conocer existencias reales</strong> de medicamentos en inventario</li>
+                <li><strong>Problemas para detectar cambios de precios</strong> en compras a proveedores</li>
+                <li><strong>Ineficiencia en la búsqueda de productos</strong> para los empleados</li>
+                <li><strong>Falta de reportes</strong> que permitan tomar decisiones basadas en datos</li>
+            </ul>
+            <p style="margin-top: 20px;">La farmacia cuenta con:</p>
+            <ul>
+                <li><strong>1 administrador</strong> (dueña) que gestiona productos, compras, costos y reportes</li>
+                <li><strong>2 vendedores</strong> que atienden a los clientes en el mostrador</li>
+                <li><strong>Múltiples proveedores</strong> que suministran medicamentos</li>
+                <li><strong>Cientos de productos</strong> en inventario (medicamentos, productos de uso personal)</li>
+            </ul>
+            
+    </div>
+
+    <!-- ENTIDADES SELECCIONADAS -->
+    <div class="section">
+        <div class="section-title">ENTIDADES SELECCIONADAS CON JUSTIFICACIÓN</div>
+        
+        <div class="info-box">
+            <div class="subsection-title">1. Usuario</div>
+            <p><strong>Justificación:</strong> Es por donde todo inicia. Para poder usar el sistema se requieren cuentas para administradores, proveedores y empleados, de modo que cada acción quede registrada a nombre de alguien y la información contable sea segura.</p>
+        </div>
+
+        <div class="info-box">
+            <div class="subsection-title">2. Proveedor</div>
+            <p><strong>Justificación:</strong> Antes de tener medicamentos, alguien debe surtirlos. Necesitamos registrar a los proveedores externos o laboratorios a los que la farmacia les compra sus productos.</p>
+        </div>
+
+        <div class="info-box">
+            <div class="subsection-title">3. Categoria</div>
+            <p><strong>Justificación:</strong> Todo inventario grande necesita organización. Las categorías clasifican los medicamentos (por ejemplo: Antibióticos o Analgésicos) antes de ingresarlos.</p>
+        </div>
+
+        <div class="info-box">
+            <div class="subsection-title">4. Producto</div>
+            <p><strong>Justificación:</strong> La entidad principal y el corazón del negocio del inventario. Une a todo: las categorías que lo agrupan, las compras que aumentan sus números, las ventas que le restan cantidades y las alertas que emite.</p>
+        </div>
+
+        <div class="info-box">
+            <div class="subsection-title">5. Compra</div>
+            <p><strong>Justificación:</strong> Aquí se registra cuando el usuario de farmacia recibe medicina u órdenes de un proveedor. Representa y agrupa de forma global el pago, pero necesita los detalles específicos de qué trae.</p>
+        </div>
+
+        <div class="info-box">
+            <div class="subsection-title">6. DetalleCompra</div>
+            <p><strong>Justificación:</strong> Por cada compra grande se pueden adquirir decenas de productos distintos. Esta entidad guarda el número de un medicamento en específico que ha entrado a la farmacia en esa orden superior de compra.</p>
+        </div>
+
+        <div class="info-box">
+            <div class="subsection-title">7. Venta</div>
+            <p><strong>Justificación:</strong> Una vez que hay inventario, los usuarios pueden despacharlo al público mediante tickets o comprobantes que agrupan los montos de cobro por esa atención.</p>
+        </div>
+
+        <div class="info-box">
+            <div class="subsection-title">8. DetalleVenta</div>
+            <p><strong>Justificación:</strong> Similar a la compra, un paciente no se lleva solo un producto a veces. Esta entidad detalla línea por línea y medicamento por medicamento qué fue lo que la persona pagó en su recibo general.</p>
+        </div>
+
+        <div class="info-box">
+            <div class="subsection-title">9. Alerta</div>
+            <p><strong>Justificación:</strong> Finalmente, debido a la vida útil de los productos, la farmacia requiere que el sistema avise y controle. Se generan alertas de proximidad de caducidad o de baja en número de stock alertando inmediatamente al Usuario.</p>
+        </div>
+    </div>
+
+
+        <div class="diagram-container">
+            <pre class="mermaid">
+erDiagram
+    USUARIO {
+        int id_usuario PK
+        string nombre
+        string usuario
+        string contrasena
+        string rol
+        boolean activo
+    }
+    
+    CATEGORIA {
+        int id_categoria PK
+        string nombre
+        text descripcion
+        boolean activo
+    }
+    
+    PRODUCTO {
+        int id_producto PK
+        string codigo_barras
+        string nombre
+        int id_categoria FK
+        string laboratorio
+        decimal precio_costo
+        decimal precio_venta
+        int stock_actual
+        int stock_minimo
+        date fecha_vencimiento
+        boolean activo
+    }
+    
+    PROVEEDOR {
+        int id_proveedor PK
+        string nombre
+        string contacto
+        string telefono
+        string email
+        text direccion
+        boolean activo
+    }
+    
+    COMPRA {
+        int id_compra PK
+        int id_proveedor FK
+        int id_usuario FK
+        string numero_factura
+        datetime fecha_compra
+        decimal total
+        string metodo_pago
+    }
+    
+    VENTA {
+        int id_venta PK
+        int id_usuario FK
+        datetime fecha_venta
+        decimal total
+        string metodo_pago
+    }
+    
+    ALERTA {
+        int id_alerta PK
+        int id_producto FK
+        string tipo_alerta
+        text mensaje
+        datetime fecha_alerta
+        boolean leida
+    }
+    
+    DETALLE_COMPRA {
+        int id_detalle_compra PK
+        int id_compra FK
+        int id_producto FK
+        int cantidad
+        decimal precio_unitario
+        decimal subtotal
+    }
+    
+    DETALLE_VENTA {
+        int id_detalle_venta PK
+        int id_venta FK
+        int id_producto FK
+        int cantidad
+        decimal precio_unitario
+        decimal subtotal
+    }
+    
+    USUARIO ||--o{ COMPRA : "1 : N"
+    USUARIO ||--o{ VENTA : "1 : N"
+    PROVEEDOR ||--o{ COMPRA : "1 : N"
+    CATEGORIA ||--o{ PRODUCTO : "1 : N"
+    PRODUCTO ||--o{ ALERTA : "1 : N"
+    COMPRA ||--o{ DETALLE_COMPRA : "1 : N"
+    PRODUCTO ||--o{ DETALLE_COMPRA : "N : M"
+    VENTA ||--o{ DETALLE_VENTA : "1 : N"
+    PRODUCTO ||--o{ DETALLE_VENTA : "N : M"
+            </pre>
+            <div class="diagram-caption">Diagrama Entidad-Relación – Sistema de Inventario Farmacia Santa Cruz</div>
+        </div>
+    </div>
+
+    <!-- ATRIBUTOS DE CADA ENTIDAD -->
+    <div class="section">
+        <div class="section-title">ATRIBUTOS DE CADA ENTIDAD</div>
+
+        <div class="subsection-title">1. Usuario</div>
+        <table>
+            <tr><th>Atributo</th><th>Descripción Detallada</th></tr>
+            <tr><td>id_usuario</td><td>Identificador único del sistema. Solo para administradores, empleados y proveedores (no registra clientes). Se usa para saber quién realiza una Compra o Venta.</td></tr>
+            <tr><td>nombre</td><td>Nombre real de la persona. Útil para identificar físicamente en reportes al responsable de cada acción.</td></tr>
+            <tr><td>usuario</td><td>Nombre de acceso al sistema. Protege la información para que solo el personal autorizado ingrese.</td></tr>
+            <tr><td>contrasena</td><td>Clave secreta para que externos (como clientes) no puedan entrar ni alterar el inventario de la entidad Producto.</td></tr>
+            <tr><td>rol</td><td>Nivel de permiso (administrador, vendedor o proveedor) que define a qué opciones de Venta, Compra o Alertas tiene acceso.</td></tr>
+            <tr><td>activo</td><td>Indica si la persona aún trabaja o tiene acceso. Si se desactiva, su historial en Ventas y Compras se mantiene, pero ya no podrá entrar.</td></tr>
+        </table>
+
+        <div class="subsection-title">2. Proveedor</div>
+        <table>
+            <tr><th>Atributo</th><th>Descripción Detallada</th></tr>
+            <tr><td>id_proveedor</td><td>Identificador del distribuidor. Se vincula obligatoriamente a la entidad Compra para saber a quién se le pagó y de dónde llegaron los medicamentos.</td></tr>
+            <tr><td>nombre</td><td>Registro comercial de la empresa abastecedora, vital para levantar una orden nueva sin confusiones.</td></tr>
+            <tr><td>contacto</td><td>Nombre del representante laboral del proveedor en caso de reclamos en la mercadería o fallas dentro de una Compra.</td></tr>
+            <tr><td>telefono</td><td>Para llamar rápido y pedir las unidades faltantes a fin de evitar quedarse sin ellas en repisas.</td></tr>
+            <tr><td>email</td><td>Correo necesario para enviar recibos o notificaciones generadas en facturas de la Compra.</td></tr>
+            <tr><td>direccion</td><td>Ubicación física del distribuidor, útil para estimar tiempos de despacho hacia el Producto de Santa Cruz.</td></tr>
+            <tr><td>activo</td><td>Si el proveedor se inactiva, el administrador ya no podrá seleccionarlo para asignarle nuevas remesas u órdenes.</td></tr>
+        </table>
+
+        <div class="subsection-title">3. Categoria</div>
+        <table>
+            <tr><th>Atributo</th><th>Descripción Detallada</th></tr>
+            <tr><td>id_categoria</td><td>Identificador único de la clasificación. Ayuda a agrupar los registros de la entidad Producto, como "Analgésicos".</td></tr>
+            <tr><td>nombre</td><td>El nombre de la categoría para encontrar los grupos de medicamentos más fácilmente en los catálogos de los empleados.</td></tr>
+            <tr><td>descripcion</td><td>Detalla qué tipo de productos entran aquí, sirviendo de guía general sobre dicho tipo de fármaco.</td></tr>
+            <tr><td>activo</td><td>Para saber si esta etiqueta se sigue usando al añadir o editar nuevos registros de Productos.</td></tr>
+        </table>
+
+        <div class="subsection-title">4. Producto</div>
+        <table>
+            <tr><th>Atributo</th><th>Descripción Detallada</th></tr>
+            <tr><td>id_producto</td><td>Identificador central del medicamento. Está ligado a su Categoría, a las Compras, a las Ventas y a las Alertas de fallas de inventario.</td></tr>
+            <tr><td>codigo_barras</td><td>Código para escanear y registrar rápido el medicamento en un DetalleCompra o en un DetalleVenta.</td></tr>
+            <tr><td>nombre</td><td>El nombre comercial del medicamento para buscarlo rápido frente al mostrador.</td></tr>
+            <tr><td>id_categoria</td><td>Enlaza el artículo al área específica guardada en la tabla Categoria.</td></tr>
+            <tr><td>laboratorio</td><td>La marca que lo fabrica. Es muy útil al hacerle pedidos nuevamente al Proveedor.</td></tr>
+            <tr><td>precio_costo</td><td>Lo invertido hacia el Proveedor; importante para cuadrar los registros de cada Compra.</td></tr>
+            <tr><td>precio_venta</td><td>El precio tarifario final al público, usado como costo al procesar una Venta.</td></tr>
+            <tr><td>stock_actual</td><td>La cantidad física en farmacia. Sube con cada DetalleCompra y baja en cada DetalleVenta.</td></tr>
+            <tr><td>stock_minimo</td><td>Límite permitido en inventario. Si la cantidad baja de este número, el sistema emitirá una Alerta.</td></tr>
+            <tr><td>fecha_vencimiento</td><td>Fecha caduca. Si le faltan 30 días, originará de inmediato una Alerta de vencimiento.</td></tr>
+            <tr><td>activo</td><td>Indica si aún se vende; si pasa a falso, dejará de salir en futuras interacciones a vendedores o administradores.</td></tr>
+        </table>
+
+        <div class="subsection-title">5. Compra</div>
+        <table>
+            <tr><th>Atributo</th><th>Descripción Detallada</th></tr>
+            <tr><td>id_compra</td><td>Identificador macro de todo lo surtido. Agrupa todas y cada una de las líneas menores registradas en DetalleCompra.</td></tr>
+            <tr><td>id_proveedor</td><td>Conecta de paso esta factura con el Proveedor que proporcionó las cajas a los empleados.</td></tr>
+            <tr><td>id_usuario</td><td>Registra cuál administrador firmó digitalmente esta operación de almacén.</td></tr>
+            <tr><td>numero_factura</td><td>Correlativo que viene impreso en el papel externo y es insertado aquí para el orden administrativo.</td></tr>
+            <tr><td>fecha_compra</td><td>Día y hora puntuales de la transacción para lograr revisiones fiables en una auditoria.</td></tr>
+            <tr><td>total</td><td>El pago global que se le hizo; se computa tras sumar el 'subtotal' de todos los fármacos listados en su respectivo DetalleCompra.</td></tr>
+            <tr><td>metodo_pago</td><td>Indica si se canceló en efectivo, cuenta bancaria o crédito.</td></tr>
+        </table>
+
+        <div class="subsection-title">6. DetalleCompra (Tabla intermedia N:M)</div>
+        <table>
+            <tr><th>Atributo</th><th>Descripción Detallada</th></tr>
+            <tr><td>id_detalle_compra</td><td>Asigna su identificador a la entrada por goteo individual de la remesa. Reagrupa en partes la cuenta gigante y centralizada bajo la entidad Compra.</td></tr>
+            <tr><td>id_compra</td><td>Cierra hermético el pacto al obligar que una pastilla específica se una a su grupo matriz del pago del lote mayor (Compra).</td></tr>
+            <tr><td>id_producto</td><td>Avisa al inventario virtual en 'Producto' que han entrado piezas nuevas, reponiendo matemáticamente su balance global 'stock_actual'.</td></tr>
+            <tr><td>cantidad</td><td>Número de unidades en ingreso directo del camión o proveedor y avalado dentro del formulario por caja para sumarse a los andenes.</td></tr>
+            <tr><td>precio_unitario</td><td>Congela y almacena la factura que impone el proveedor. Evita desfalcos posteriores si la etiqueta de precio del Producto general muta días o semanas después.</td></tr>
+            <tr><td>subtotal</td><td>Precio_unitario multiplicado al factor directo 'cantidad'; pasará el relevo a conformar su importe superior al macro nivel de su entidad origen.</td></tr>
+        </table>
+
+        <div class="subsection-title">7. Venta</div>
+        <table>
+            <tr><th>Atributo</th><th>Descripción Detallada</th></tr>
+            <tr><td>id_venta</td><td>Se usa para acoplar bajo un mismo número todos los medicamentos despachados al mostrador para cobro final (no vincula usuarios externos/clientes).</td></tr>
+            <tr><td>id_usuario</td><td>Añade control indicando cuál vendedor hizo la ejecución o cobro en su turno.</td></tr>
+            <tr><td>fecha_venta</td><td>Indica el momento de la hora laboral en que un recibo fue procesado por caja al cliente.</td></tr>
+            <tr><td>total</td><td>Coste definitivo final; se calcula integrando automáticamente todo lo envasado en la sub-área de un DetalleVenta conjunto.</td></tr>
+            <tr><td>metodo_pago</td><td>Indica si el usuario cobró bajo modalidad directa de tarjeta o manejando dinero físico extra (efectivo).</td></tr>
+        </table>
+
+        <div class="subsection-title">8. DetalleVenta (Tabla intermedia N:M)</div>
+        <table>
+            <tr><th>Atributo</th><th>Descripción Detallada</th></tr>
+            <tr><td>id_detalle_venta</td><td>Clave individual que aisla cada medicamento a ser pagado. Ideal para separar qué cosas distintas lleva el carro final de transacción del recibo de Venta mayor.</td></tr>
+            <tr><td>id_venta</td><td>Identifica o abraza el fármaco singular hacia su comprobante terminal de cara al público consumidor saliente (Venta).</td></tr>
+            <tr><td>id_producto</td><td>Rebaja contundentemente cada cajita del fármaco dentro de los saldos maestros en la entidad global de Producto restándolo de lo disponible ('stock_actual').</td></tr>
+            <tr><td>cantidad</td><td>Soportes físicos empaquetados del medicamento en transacción hacia la ventanilla, clave para sustraerlos de los dominios físicos locales.</td></tr>
+            <tr><td>precio_unitario</td><td>Captura final congelada por seguridad de auditorias a largo plazo, sobre el precio por unidad sin importar si por fuera la tabla madre aumenta el margen comercial.</td></tr>
+            <tr><td>subtotal</td><td>Solución aritmética interna por multiplicación (cantidad vendida x su costo unitario) resguardado hacia la suma conjunta a cobrar en la entidad global 'Venta'.</td></tr>
+        </table>
+
+        <div class="subsection-title">9. Alerta</div>
+        <table>
+            <tr><th>Atributo</th><th>Descripción Detallada</th></tr>
+            <tr><td>id_alerta</td><td>Número único de las notificaciones que nacen cuando algo crítico falla con inventarios.</td></tr>
+            <tr><td>id_producto</td><td>Avisa y liga automáticamente refiriendose al Producto del catálogo para indicar qué medicina es la del contratiempo.</td></tr>
+            <tr><td>tipo_alerta</td><td>Señala al empleado si el asunto es por límite mermado bajo o cercanía de caducidad.</td></tr>
+            <tr><td>mensaje</td><td>Pequeño relato informativo y general para actuar y reemplazar dicho fármaco averiado en el lote.</td></tr>
+            <tr><td>fecha_alerta</td><td>Señala el instante en el que surgió orgánicamente esta necesidad o fallo material.</td></tr>
+            <tr><td>leida</td><td>Marcador con interruptor a la acción humana para borrar la alerta una vez fue resuelta debidamente por la administración de turno.</td></tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    mermaid.initialize({ 
+        startOnLoad: true,
+        theme: 'default',
+        themeVariables: {
+            primaryColor: '#3498db',
+            primaryBorderColor: '#2980b9',
+            primaryTextColor: '#2c3e50',
+            lineColor: '#2c3e50',
+            secondaryColor: '#ecf0f1',
+            tertiaryColor: '#fff',
+            background: '#ffffff',
+            mainBkg: '#ffffff',
+            secondBkg: '#f8f9fa',
+            tertiaryBkg: '#fff'
+        },
+        er: {
+            useMaxWidth: true,
+            entityPadding: 20,
+            titleFontSize: 16,
+            fontSize: 13,
+            layoutDirection: 'TB',
+            minEntityWidth: 100,
+            minEntityHeight: 75,
+            entityBorderRadius: 5
+        },
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis'
+        }
+    });
+</script>
+</body>
+</html>
