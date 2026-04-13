@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Inventario - Farmacia Santa Cruz</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.5; color: #333; background: #f5f5f5; padding: 30px; }
+        .document { max-width: 1200px; margin: 0 auto; background: white; box-shadow: 0 0 20px rgba(0,0,0,0.1); padding: 40px; }
+        .cover { text-align: center; margin-bottom: 50px; padding: 40px 20px; border-bottom: 3px solid #000; }
+        .cover h1 { font-size: 28px; margin: 25px 0; text-transform: uppercase; font-weight: bold; }
+        .cover h2 { font-size: 22px; margin: 20px 0; }
+        .cover .institution { font-size: 20px; font-weight: bold; margin: 15px 0; }
+        .cover .project-title { font-size: 26px; font-weight: bold; margin: 40px 0; text-decoration: underline; }
+        .cover .team { margin: 40px 0; text-align: left; display: inline-block; font-size: 16px; }
+        .cover .team div { margin: 8px 0; }
+        .section { margin: 50px 0; page-break-inside: avoid; clear: both; }
+        .section-title { font-size: 24px; font-weight: bold; margin: 30px 0 20px 0; padding-bottom: 8px; border-bottom: 3px solid #000; text-transform: uppercase; letter-spacing: 1px; }
+        .subsection-title { font-size: 20px; font-weight: bold; margin: 25px 0 15px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 14px; }
+        th { background: #2c3e50; color: white; font-weight: bold; text-align: left; padding: 12px; border: 1px solid #000; }
+        td { padding: 12px; border: 1px solid #000; vertical-align: top; }
+        .table-casouso td:first-child { width: 180px; background: #ecf0f1; font-weight: bold; }
+        .diagram-container { margin: 40px 0; text-align: center; border: 1px solid #bdc3c7; padding: 20px; background: #f9f9f9; border-radius: 5px; }
+        .diagram-caption { text-align: center; font-style: italic; margin: 15px 0 0 0; font-size: 14px; color: #7f8c8d; }
+        .info-box { border: 2px solid #000; padding: 25px; margin: 25px 0; background: #f9f9f9; }
+        ul { margin: 15px 0 15px 30px; }
+        li { margin: 8px 0; }
+        .edit-controls { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 10px; z-index: 1000; }
+        .edit-btn { padding: 12px 24px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s; }
+        .edit-btn:hover { background: #2ecc71; transform: translateY(-2px); }
+        .edit-btn.print { background: #e67e22; }
+        .edit-btn.print:hover { background: #d35400; }
+        svg { font-family: Arial, sans-serif; }
+        @media print {
+            body { padding: 0; }
+            .document { box-shadow: none; padding: 20px; }
+            .edit-controls { display: none; }
+            .diagram-container { border: none; background: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="document" id="documentContent">
+
+    <!-- PORTADA -->
+    <div class="cover">
+        <div class="institution">INSTITUTO NACIONAL DE SAN MARTÍN</div>
+        <h2>2° BACHILLERATO TÉCNICO EN DESARROLLO DE SOFTWARE "B"</h2>
+        <div class="project-title">DISEÑO DE SISTEMA</div>
+        <h1>DESARROLLO DEL DISEÑO DE PROTOTIPO DE INVENTARIADO FARMACÉUTICO DE LA FARMACIA SANTA CRUZ</h1>
+        <div style="margin: 50px 0;">
+            <div style="font-weight: bold; font-size: 20px;">GRUPO N°: 7</div>
+            <div class="team">
+                <div>Stiven Gabriel López Hernández #04</div>
+                <div>Joel Edgardo Mendoza López #08</div>
+                <div>Guadalupe Abigaíl Romero Pedreza #32</div>
+                <div>Tiffany Alessandra Sermeño Flores #34</div>
+            </div>
+        </div>
+        <div style="margin: 40px 0; font-size: 18px;">
+            <div><strong>DOCENTE:</strong> Maria Magdalena García González</div>
+        </div>
+        <div style="margin-top: 60px; font-size: 18px;">
+            <div>Marzo 2026, San Martín, San Salvador, El Salvador</div>
+        </div>
+    </div>
+
+    <!-- INFORMACIÓN DEL PROYECTO -->
+    <div class="section">
+        <div class="section-title">INFORMACIÓN DEL PROYECTO</div>
+        <table>
+            <tr><td style="width:200px;background:#ecf0f1;font-weight:bold;">Nombre del Proyecto</td><td>Desarrollo del diseño de prototipo de inventariado farmacéutico de la Farmacia Santa Cruz</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Institución</td><td>Instituto Nacional de San Martín</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Modalidad</td><td>2° Bachillerato Técnico en Desarrollo de Software "B"</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Grupo</td><td>N° 7</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Responsables</td><td>Stiven Gabriel López Hernández #04<br>Joel Edgardo Mendoza López #08<br>Guadalupe Abigaíl Romero Pedreza #32<br>Tiffany Alessandra Sermeño Flores #34</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Docente</td><td>María Magdalena García González</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Fecha de Inicio</td><td>16 de febrero de 2026</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Fecha de Término</td><td>20 de marzo de 2026</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Duración</td><td>5 semanas</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Beneficiarios Directos</td><td>Dueña de la farmacia, empleados de la farmacia</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Tipo de Proyecto</td><td>Proyecto tecnológico-productivo</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Área</td><td>Desarrollo de software</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Categoría</td><td>Sistema de inventario para farmacia</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Alcance</td><td>Local - Municipio de San Martín</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">País</td><td>El Salvador</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Departamento</td><td>San Salvador</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Municipio</td><td>San Martín</td></tr>
+            <tr><td style="background:#ecf0f1;font-weight:bold;">Ubicación</td><td>Farmacia Santa Cruz, Pasaje Parroquial y Avenida Norte, San Martín Norte</td></tr>
+        </table>
+    </div>
+
+    <!-- OBJETIVOS -->
+    <div class="section">
+        <div class="section-title">OBJETIVOS DEL PROYECTO</div>
+        <div class="info-box">
+            <div class="subsection-title">Objetivo General</div>
+            <p style="font-size:16px;margin-bottom:20px;">Desarrollar e implementar un sistema digital de inventario para la Farmacia Santa Cruz que permita organizar y controlar los medicamentos, reduciendo las pérdidas económicas y mejorando la eficiencia operativa del negocio.</p>
+            
+            <div class="subsection-title">Objetivos Específicos</div>
+            <ul>
+                <li>Registrar todos los medicamentos y productos de uso personal en el sistema digital.</li>
+                <li>Controlar el stock de productos mediante alertas de bajo inventario.</li>
+                <li>Detectar productos próximos a vencer para evitar pérdidas económicas.</li>
+                <li>Facilitar la búsqueda de medicamentos por múltiples criterios (nombre, código, categoría).</li>
+                <li>Generar reportes de inventario, ventas, compras y vencimientos para toma de decisiones.</li>
+                <li>Registrar compras a proveedores con actualización automática de stock y precios.</li>
+                <li>Registrar ventas de productos con descuento automático de stock.</li>
+                <li>Monitorear cambios en precios de costo para ajustar precios de venta.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ALCANCE DEL SISTEMA -->
+    <div class="section">
+        <div class="section-title">ALCANCE DEL SISTEMA</div>
+        <div class="info-box">
+            <div class="subsection-title">Alcance Funcional</div>
+            <p style="font-size:16px;margin-bottom:15px;">El sistema de inventario para la Farmacia Santa Cruz incluye las siguientes funcionalidades:</p>
+            <ul>
+                <li><strong>Autenticación:</strong> Inicio de sesión para administradores y vendedores con control de acceso por roles.</li>
+                <li><strong>Gestión de Productos:</strong> Registro, edición y eliminación de productos con información completa (nombre, precio, stock, laboratorio, fecha de vencimiento, categoría).</li>
+                <li><strong>Gestión de Compras:</strong> Registro de compras a proveedores con actualización automática de stock y precios de costo.</li>
+                <li><strong>Gestión de Ventas:</strong> Registro de ventas con cálculo automático de totales, generación de facturas y descuento de stock.</li>
+                <li><strong>Monitoreo de Costos:</strong> Detección de cambios en precios de costo y sugerencia de ajustes en precios de venta.</li>
+                <li><strong>Alertas de Caducidad:</strong> Generación automática de alertas para productos próximos a vencer (30 días).</li>
+                <li><strong>Reportes:</strong> Generación de reportes de inventario, ventas, compras y vencimientos con exportación a PDF.</li>
+            </ul>
+            
+            <div class="subsection-title">Alcance No Funcional</div>
+            <ul>
+                <li><strong>Usuarios del Sistema:</strong> Solo administradores y vendedores de la farmacia. NO se registran clientes que compran productos.</li>
+                <li><strong>Alcance Geográfico:</strong> Local físico de la Farmacia Santa Cruz en San Martín Norte.</li>
+                <li><strong>Tipo de Sistema:</strong> Sistema de escritorio/local, NO es una página web ni sistema en línea.</li>
+                <li><strong>Base de Datos:</strong> Local, almacenada en el mismo equipo donde se ejecuta el sistema.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- GLOSARIO DE TÉRMINOS -->
+    <div class="section">
+        <div class="section-title">GLOSARIO DE TÉRMINOS</div>
+        <table>
+            <tr><th>Término</th><th>Definición</th></tr>
+            <tr><td><strong>Usuario</strong></td><td>Persona que utiliza el sistema de inventario. En este contexto, "usuario" se refiere exclusivamente al <strong>administrador o vendedor</strong> de la farmacia que tiene credenciales de acceso al sistema. NO se refiere al cliente que compra productos.</td></tr>
+            <tr><td><strong>Administrador</strong></td><td>Usuario del sistema con permisos completos. Puede registrar productos, compras, monitorear costos, generar alertas de caducidad y crear reportes. Generalmente es la dueña de la farmacia o un empleado con responsabilidades de gestión.</td></tr>
+            <tr><td><strong>Vendedor</strong></td><td>Usuario del sistema con permisos limitados. Puede registrar ventas y buscar productos. Es el empleado que atiende a los clientes en el mostrador.</td></tr>
+            <tr><td><strong>Cliente</strong></td><td>Persona que compra productos en la farmacia. NO se registra en el sistema. Solo va, compra y se va. El sistema NO almacena información de clientes.</td></tr>
+            <tr><td><strong>Producto</strong></td><td>Medicamento o artículo de uso personal que se vende en la farmacia. Tiene nombre, precio de costo, precio de venta, stock, laboratorio, fecha de vencimiento y categoría.</td></tr>
+            <tr><td><strong>Proveedor</strong></td><td>Empresa o persona que suministra productos a la farmacia. Se registra en el sistema para gestionar compras.</td></tr>
+            <tr><td><strong>Stock</strong></td><td>Cantidad de unidades disponibles de un producto en el inventario.</td></tr>
+            <tr><td><strong>Caducidad</strong></td><td>Fecha límite hasta la cual un producto puede ser vendido. El sistema genera alertas 30 días antes.</td></tr>
+            <tr><td><strong>Categoría</strong></td><td>Clasificación de productos (ej: Antibióticos, Analgésicos, Vitaminas, etc.).</td></tr>
+            <tr><td><strong>Factura</strong></td><td>Documento que se genera al realizar una venta, con detalle de productos, cantidades y total.</td></tr>
+            <tr><td><strong>Reporte</strong></td><td>Documento generado por el sistema que muestra información de inventario, ventas, compras o vencimientos.</td></tr>
+            <tr><td><strong>Sistema Local</strong></td><td>Software que se ejecuta en un computador de la farmacia, NO requiere internet ni servidor web.</td></tr>
+        </table>
+    </div>
+
+    <!-- TECNOLOGÍAS -->
+    <div class="section">
+        <div class="section-title">TECNOLOGÍAS Y HERRAMIENTAS</div>
+        <table>
+            <tr><th>Categoría</th><th>Tecnología</th><th>Justificación</th></tr>
+            <tr><td>Lenguaje de Programación</td><td>Python 3.x</td><td>Lenguaje versátil, fácil de aprender, ideal para prototipos y sistemas de escritorio.</td></tr>
+            <tr><td>Interfaz Gráfica</td><td>Tkinter</td><td>Librería estándar de Python para interfaces gráficas, no requiere instalación adicional.</td></tr>
+            <tr><td>Base de Datos</td><td>SQLite</td><td>Base de datos ligera, local, no requiere servidor, ideal para sistemas de escritorio.</td></tr>
+            <tr><td>Generación de PDF</td><td>ReportLab</td><td>Librería para generar reportes en formato PDF.</td></tr>
+            <tr><td>Diagramas</td><td>PlantUML</td><td>Herramienta para generar diagramas UML a partir de texto.</td></tr>
+            <tr><td>Documentación</td><td>HTML/CSS</td><td>Formato estándar para documentación visual y profesional.</td></tr>
+        </table>
+    </div>
+
+    <!-- DIAGRAMA DE CONTEXTO -->
+    <div class="section">
+        <div class="section-title">DIAGRAMA DE CONTEXTO</div>
+        <div class="diagram-container">
+            <svg id="contextDiagram" width="800" height="500" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Contexto – Sistema de Inventario Farmacia Santa Cruz</div>
+        </div>
+        <div class="info-box">
+            <p style="font-size:16px;margin-bottom:15px;"><strong>Descripción del Diagrama de Contexto:</strong></p>
+            <ul>
+                <li><strong>Sistema Central:</strong> Sistema de Inventario Farmacia Santa Cruz (el sistema que estamos desarrollando).</li>
+                <li><strong>Actores Externos:</strong></li>
+                <ul>
+                    <li><strong>Administrador:</strong> Usuario del sistema que gestiona productos, compras, costos, alertas y reportes.</li>
+                    <li><strong>Vendedor:</strong> Usuario del sistema que registra ventas y busca productos.</li>
+                    <li><strong>Proveedor:</strong> Entidad externa que suministra productos a la farmacia (no interactúa directamente con el sistema).</li>
+                    <li><strong>Cliente:</strong> Persona que compra productos en la farmacia (NO interactúa con el sistema, solo con el vendedor).</li>
+                </ul>
+                <li><strong>Flujo de Información:</strong></li>
+                <ul>
+                    <li>Administrador → Sistema: Credenciales, datos de productos, compras, consultas.</li>
+                    <li>Sistema → Administrador: Pantallas, reportes, alertas, confirmaciones.</li>
+                    <li>Vendedor → Sistema: Credenciales, datos de ventas, búsquedas.</li>
+                    <li>Sistema → Vendedor: Pantallas, facturas, resultados de búsqueda.</li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+
+    <!-- DIAGRAMA DE PAQUETES -->
+    <div class="section">
+        <div class="section-title">DIAGRAMA DE PAQUETES</div>
+        <div class="diagram-container">
+            <svg id="packageDiagram" width="800" height="450" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Paquetes – Arquitectura del Sistema</div>
+        </div>
+        <div class="info-box">
+            <p style="font-size:16px;margin-bottom:15px;"><strong>Estructura de Paquetes:</strong></p>
+            <ul>
+                <li><strong>Capa de Presentación:</strong> Interfaz gráfica de usuario (ventanas, formularios, botones).</li>
+                <li><strong>Capa de Lógica de Negocio:</strong> Reglas de negocio, validaciones, cálculos.</li>
+                <li><strong>Capa de Acceso a Datos:</strong> Conexión a base de datos, consultas SQL, inserciones.</li>
+                <li><strong>Capa de Persistencia:</strong> Base de datos SQLite local.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- DIAGRAMA DE ACTIVIDADES -->
+    <div class="section">
+        <div class="section-title">DIAGRAMA DE ACTIVIDADES</div>
+        <div class="diagram-container">
+            <svg id="activityDiagram" width="900" height="600" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Actividades – Flujo Principal del Sistema</div>
+        </div>
+        <div class="info-box">
+            <p style="font-size:16px;margin-bottom:15px;"><strong>Descripción del Diagrama de Actividades:</strong></p>
+            <ul>
+                <li><strong>Inicio:</strong> El usuario abre el sistema y se muestra la pantalla de inicio de sesión.</li>
+                <li><strong>Autenticación:</strong> El usuario ingresa credenciales y el sistema valida.</li>
+                <li><strong>Menú Principal:</strong> Según el rol, se muestra el menú con opciones disponibles.</li>
+                <li><strong>Gestión de Productos:</strong> Registrar, editar, eliminar y buscar productos.</li>
+                <li><strong>Gestión de Compras:</strong> Registrar compras a proveedores con actualización de stock.</li>
+                <li><strong>Gestión de Ventas:</strong> Registrar ventas con descuento de stock y generación de facturas.</li>
+                <li><strong>Monitoreo:</strong> Revisar alertas de caducidad y cambios de precios.</li>
+                <li><strong>Reportes:</strong> Generar y exportar reportes de inventario, ventas y compras.</li>
+                <li><strong>Fin:</strong> El usuario cierra sesión y el sistema registra la hora de salida.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- DIAGRAMA DE ESTADOS -->
+    <div class="section">
+        <div class="section-title">DIAGRAMA DE ESTADOS</div>
+        <div class="diagram-container">
+            <svg id="stateDiagram" width="900" height="500" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Estados – Ciclo de Vida de un Producto</div>
+        </div>
+        <div class="info-box">
+            <p style="font-size:16px;margin-bottom:15px;"><strong>Estados de un Producto:</strong></p>
+            <ul>
+                <li><strong>Registrado:</strong> Producto ingresado al sistema con todos sus datos.</li>
+                <li><strong>Activo:</strong> Producto disponible para la venta.</li>
+                <li><strong>Stock Bajo:</strong> Producto con cantidad menor al stock mínimo establecido.</li>
+                <li><strong>Próximo a Vencer:</strong> Producto con fecha de vencimiento en los próximos 30 días.</li>
+                <li><strong>Vencido:</strong> Producto que ha superado su fecha de vencimiento.</li>
+                <li><strong>Agotado:</strong> Producto sin stock disponible.</li>
+                <li><strong>Inactivo:</strong> Producto deshabilitado por el administrador.</li>
+            </ul>
+            <p style="font-size:16px;margin-top:15px;"><strong>Transiciones:</strong></p>
+            <ul>
+                <li>Registrado → Activo: Cuando se guarda por primera vez.</li>
+                <li>Activo → Stock Bajo: Cuando el stock baja del mínimo.</li>
+                <li>Activo → Próximo a Vencer: Cuando faltan 30 días para vencer.</li>
+                <li>Próximo a Vencer → Vencido: Cuando se supera la fecha de vencimiento.</li>
+                <li>Activo → Agotado: Cuando el stock llega a 0.</li>
+                <li>Agotado → Activo: Cuando se registra una compra que repone stock.</li>
+                <li>Activo → Inactivo: Cuando el administrador lo deshabilita.</li>
+                <li>Inactivo → Activo: Cuando el administrador lo rehabilita.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- REQUISITOS NO FUNCIONALES -->
+    <div class="section">
+        <div class="section-title">REQUISITOS NO FUNCIONALES</div>
+        <table>
+            <tr><th>Categoría</th><th>Requisito</th><th>Descripción</th></tr>
+            <tr><td><strong>Rendimiento</strong></td><td>RNF-01: Tiempo de respuesta</td><td>El sistema debe responder en menos de 2 segundos a cualquier operación.</td></tr>
+            <tr><td><strong>Rendimiento</strong></td><td>RNF-02: Capacidad de datos</td><td>El sistema debe manejar hasta 10,000 productos sin degradación de rendimiento.</td></tr>
+            <tr><td><strong>Usabilidad</strong></td><td>RNF-03: Interfaz intuitiva</td><td>La interfaz debe ser fácil de usar sin capacitación extensa.</td></tr>
+            <tr><td><strong>Usabilidad</strong></td><td>RNF-04: Mensajes claros</td><td>Todos los mensajes de error deben ser claros y orientar al usuario.</td></tr>
+            <tr><td><strong>Fiabilidad</strong></td><td>RNF-05: Disponibilidad</td><td>El sistema debe estar disponible durante el horario de atención de la farmacia.</td></tr>
+            <tr><td><strong>Fiabilidad</strong></td><td>RNF-06: Respaldo de datos</td><td>El sistema debe permitir respaldo manual de la base de datos.</td></tr>
+            <tr><td><strong>Seguridad</strong></td><td>RNF-07: Autenticación</td><td>El sistema debe requerir usuario y contraseña para acceder.</td></tr>
+            <tr><td><strong>Seguridad</strong></td><td>RNF-08: Control de acceso</td><td>El sistema debe restringir funciones según el rol del usuario.</td></tr>
+            <tr><td><strong>Mantenibilidad</strong></td><td>RNF-09: Código modular</td><td>El código debe estar organizado en módulos para facilitar mantenimiento.</td></tr>
+            <tr><td><strong>Portabilidad</strong></td><td>RNF-10: Compatibilidad</td><td>El sistema debe funcionar en Windows 10 y versiones superiores.</td></tr>
+            <tr><td><strong>Escalabilidad</strong></td><td>RNF-11: Crecimiento</td><td>El sistema debe permitir agregar más productos y funcionalidades futuras.</td></tr>
+        </table>
+    </div>
+
+    <!-- RESTRICCIONES DEL SISTEMA -->
+    <div class="section">
+        <div class="section-title">RESTRICCIONES DEL SISTEMA</div>
+        <div class="info-box">
+            <ul>
+                <li><strong>Restricción de Hardware:</strong> El sistema debe funcionar en un computador estándar con al menos 4GB de RAM y 500GB de disco.</li>
+                <li><strong>Restricción de Software:</strong> El sistema requiere Python 3.x instalado en el equipo.</li>
+                <li><strong>Restricción de Conectividad:</strong> El sistema NO requiere conexión a internet para funcionar.</li>
+                <li><strong>Restricción de Usuarios:</strong> El sistema soporta máximo 5 usuarios simultáneos (suficiente para la farmacia).</li>
+                <li><strong>Restricción de Almacenamiento:</strong> La base de datos SQLite tiene un límite práctico de 1GB.</li>
+                <li><strong>Restricción de Tiempo:</strong> El prototipo debe estar listo en 5 semanas.</li>
+                <li><strong>Restricción de Presupuesto:</strong> El proyecto no tiene costo de licencias (software libre).</li>
+                <li><strong>Restricción de Alcance:</strong> El sistema es solo para la Farmacia Santa Cruz, no es genérico.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SUPOSICIONES -->
+    <div class="section">
+        <div class="section-title">SUPOSICIONES Y DEPENDENCIAS</div>
+        <div class="info-box">
+            <div class="subsection-title">Suposiciones</div>
+            <ul>
+                <li>La farmacia tiene un computador disponible para instalar el sistema.</li>
+                <li>Los empleados tienen conocimientos básicos de computación.</li>
+                <li>La dueña de la farmacia está dispuesta a capacitar a sus empleados.</li>
+                <li>Los proveedores entregan facturas con información de productos.</li>
+                <li>La farmacia tiene un horario de atención definido.</li>
+                <li>Los productos tienen códigos de barras o identificadores únicos.</li>
+            </ul>
+            
+            <div class="subsection-title">Dependencias</div>
+            <ul>
+                <li>Python 3.x debe estar instalado en el equipo.</li>
+                <li>Tkinter debe estar disponible (viene con Python).</li>
+                <li>SQLite debe estar disponible (viene con Python).</li>
+                <li>ReportLab debe ser instalado para generación de PDFs.</li>
+                <li>El equipo debe tener al menos 4GB de RAM.</li>
+                <li>El equipo debe tener al menos 500GB de disco duro.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PROBLEMÁTICA -->
+    <div class="section">
+        <div class="section-title">PROBLEMÁTICA DEL PROYECTO</div>
+        <div class="info-box">
+            <p style="font-size: 16px; margin-bottom: 20px;">La Farmacia Santa Cruz, ubicada en el pasaje parroquial y avenida norte, San Martín Norte, gestiona anualmente <strong>$12,000 en medicamentos y productos de uso personal</strong>. Sin embargo, su modelo de registro manual le ha causado distintos conflictos:</p>
+            <ul>
+                <li>Disminución de clientes por falta de organización en el inventario.</li>
+                <li>Pérdida económica de $400 en los últimos 2 años debido a productos vencidos no detectados a tiempo.</li>
+                <li>Dificultad para conocer existencias reales de medicamentos.</li>
+                <li>Problemas para detectar cambios de precios en compras a proveedores.</li>
+                <li>Ineficiencia en la búsqueda de productos para empleados.</li>
+                <li>Falta de reportes que permitan tomar decisiones basadas en datos.</li>
+            </ul>
+            <p style="margin-top: 20px;">La digitalización del inventario no es un capricho, es una necesidad preventiva para asegurar una mayor organización para los empleados y el propio dueño.</p>
+        </div>
+    </div>
+
+    <!-- SOLUCIÓN PROPUESTA -->
+    <div class="section">
+        <div class="section-title">SOLUCIÓN PROPUESTA</div>
+        <div class="info-box">
+            <p style="font-size: 16px; margin-bottom: 20px;">Desarrollar un <strong>prototipo de sistema digital para la gestión de inventario</strong> que permita:</p>
+            <ul>
+                <li>Controlar entrada y salida de medicamentos y productos médicos.</li>
+                <li>Detectar cambios de precios y movimientos en tiempo real.</li>
+                <li>Generar alertas de productos próximos a vencer.</li>
+                <li>Facilitar búsqueda de medicamentos por múltiples criterios.</li>
+                <li>Generar reportes de compras, facturas y vencimientos.</li>
+            </ul>
+            <p style="margin: 20px 0 10px 0;">Con este sistema se ha detectado que se puede lograr:</p>
+            <ul>
+                <li><strong>40% de reducción de pérdidas</strong></li>
+                <li><strong>30% de ahorro por registros exactos</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TABLA DE REQUISITOS FUNCIONALES -->
+    <div class="section">
+        <div class="section-title">TABLA DE REQUISITOS FUNCIONALES</div>
+        <table>
+            <tr>
+                <th>Código</th><th>Nombre</th><th>Descripción</th><th>Prioridad</th><th>Actor(es)</th>
+            </tr>
+            <tr><td>RF-001</td><td>Inicio de Sesión</td><td>El sistema debe permitir el acceso mediante usuario y contraseña.</td><td>Alta</td><td>Administrador, Vendedor</td></tr>
+            <tr><td>RF-002</td><td>Registrar Productos</td><td>Permitir el registro de nuevos productos con nombre, precio, stock, laboratorio, fecha de vencimiento y categoría.</td><td>Alta</td><td>Administrador</td></tr>
+            <tr><td>RF-003</td><td>Registrar Compras</td><td>Registrar la compra de productos a proveedores, actualizando el stock y el precio de costo.</td><td>Alta</td><td>Administrador</td></tr>
+            <tr><td>RF-004</td><td>Registrar Ventas</td><td>Registrar ventas, calcular total, generar factura y descontar stock.</td><td>Alta</td><td>Vendedor</td></tr>
+            <tr><td>RF-005</td><td>Monitoreo de Costos</td><td>Detectar cambios en costo de compra y sugerir actualización de precio.</td><td>Media</td><td>Administrador</td></tr>
+            <tr><td>RF-006</td><td>Alerta de Caducidad</td><td>Generar alertas para medicamentos próximos a vencer.</td><td>Alta</td><td>Administrador</td></tr>
+            <tr><td>RF-007</td><td>Generar Reportes</td><td>Generar reportes de inventario, ventas, compras y vencimientos.</td><td>Media</td><td>Administrador</td></tr>
+        </table>
+    </div>
+
+    <!-- ORDEN LÓGICO -->
+    <div class="section">
+        <div class="section-title">ORDEN LÓGICO DE LOS CASOS DE USO</div>
+        <table>
+            <tr><th>Orden</th><th>Código</th><th>Nombre</th><th>Justificación</th></tr>
+            <tr><td>1</td><td>CU-01</td><td>Inicio de Sesión</td><td>Primero el usuario debe acceder al sistema</td></tr>
+            <tr><td>2</td><td>CU-02</td><td>Registrar Productos</td><td>Para tener inventario, primero hay que registrar productos</td></tr>
+            <tr><td>3</td><td>CU-03</td><td>Registrar Compras</td><td>Para reabastecer el inventario, se necesitan registrar compras a proveedores</td></tr>
+            <tr><td>4</td><td>CU-04</td><td>Registrar Ventas</td><td>Con productos registrados, se pueden realizar ventas</td></tr>
+            <tr><td>5</td><td>CU-05</td><td>Monitoreo de Costos</td><td>Durante compras, se monitorean cambios de precios</td></tr>
+            <tr><td>6</td><td>CU-06</td><td>Alerta de Caducidad</td><td>El sistema alerta sobre productos próximos a vencer</td></tr>
+            <tr><td>7</td><td>CU-07</td><td>Generar Reportes</td><td>Finalmente, se generan reportes para análisis</td></tr>
+        </table>
+    </div>
+
+    <!-- DIAGRAMA PRINCIPAL DE CASOS DE USO -->
+    <div class="section">
+        <div class="section-title">DIAGRAMA PRINCIPAL DE CASOS DE USO</div>
+        <div class="diagram-container">
+            <svg id="mainDiagram" width="900" height="820" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama Principal: Sistema de Inventario Farmacia Santa Cruz – 7 casos de uso</div>
+        </div>
+    </div>
+
+    <!-- CU-01 -->
+    <div class="section">
+        <div class="section-title">CASO DE USO CU-01: Inicio de Sesión</div>
+        <table class="table-casouso">
+            <tr><td>Código</td><td>CU-01</td></tr>
+            <tr><td>Nombre</td><td>Inicio de Sesión</td></tr>
+            <tr><td>Actor Principal</td><td>Administrador, Vendedor</td></tr>
+            <tr><td>Precondiciones</td><td>1. El usuario debe estar registrado en el sistema.<br>2. El sistema debe estar activo y accesible.<br>3. La base de datos debe estar conectada.</td></tr>
+            <tr><td>Flujo Principal</td><td>1. Usuario abre el sistema.<br>2. Sistema muestra pantalla de inicio de sesión.<br>3. Usuario ingresa nombre de usuario.<br>4. Usuario ingresa contraseña.<br>5. Usuario presiona botón "Iniciar Sesión".<br>6. Sistema valida que el campo usuario no esté vacío.<br>7. Sistema valida que el campo contraseña no esté vacío.<br>8. Sistema consulta base de datos para verificar credenciales.<br>9. Sistema verifica que el usuario existe.<br>10. Sistema verifica que la contraseña coincide.<br>11. Sistema verifica que el usuario está activo.<br>12. Sistema carga permisos del usuario según su rol.<br>13. Sistema registra fecha y hora de acceso.<br>14. Sistema muestra pantalla principal según el rol.</td></tr>
+            <tr><td>Flujos Alternativos</td><td>FA-01: Campo usuario vacío → sistema muestra mensaje "El campo usuario es obligatorio".<br>FA-02: Campo contraseña vacío → sistema muestra mensaje "El campo contraseña es obligatorio".<br>FA-03: Usuario no existe → sistema muestra mensaje "Usuario no encontrado".<br>FA-04: Contraseña incorrecta → sistema muestra mensaje "Contraseña incorrecta".<br>FA-05: Usuario inactivo → sistema muestra mensaje "Usuario deshabilitado, contacte al administrador".<br>FA-06: Base de datos no disponible → sistema muestra mensaje "Error de conexión, intente más tarde".<br>FA-07: 3 intentos fallidos → sistema bloquea cuenta por 15 minutos.</td></tr>
+            <tr><td>Excepciones</td><td>EX-01: Error de conexión a base de datos → sistema muestra mensaje de error y permite reintentar.<br>EX-02: Sesión expirada → sistema redirige a pantalla de inicio de sesión.</td></tr>
+            <tr><td>Reglas de Negocio</td><td>RN-01: La contraseña debe tener al menos 6 caracteres.<br>RN-02: El nombre de usuario debe ser único en el sistema.<br>RN-03: Después de 3 intentos fallidos, la cuenta se bloquea por 15 minutos.<br>RN-04: Solo usuarios con rol "Administrador" o "Vendedor" pueden acceder al sistema.</td></tr>
+            <tr><td>Postcondiciones</td><td>1. Usuario autenticado correctamente.<br>2. Sesión iniciada con fecha y hora registrada.<br>3. Permisos cargados según el rol del usuario.<br>4. Usuario redirigido a pantalla principal.</td></tr>
+        </table>
+        <div class="diagram-container">
+            <svg id="uc01" width="700" height="420" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Caso de Uso – CU-01: Inicio de Sesión</div>
+        </div>
+        <div class="diagram-container">
+            <svg id="seq01" width="780" height="480" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Secuencia – CU-01: Inicio de Sesión</div>
+        </div>
+    </div>
+
+    <!-- CU-02 -->
+    <div class="section">
+        <div class="section-title">CASO DE USO CU-02: Registrar Productos</div>
+        <table class="table-casouso">
+            <tr><td>Código</td><td>CU-02</td></tr>
+            <tr><td>Nombre</td><td>Registrar Productos</td></tr>
+            <tr><td>Actor Principal</td><td>Administrador</td></tr>
+            <tr><td>Precondiciones</td><td>1. Administrador autenticado y con permisos de administrador.<br>2. Sistema conectado a base de datos.<br>3. Categorías de productos previamente registradas.</td></tr>
+            <tr><td>Flujo Principal</td><td>1. Administrador selecciona opción "Registrar Producto" del menú.<br>2. Sistema muestra formulario de registro de producto.<br>3. Administrador ingresa código de barras del producto.<br>4. Sistema valida que el código de barras no exista en el sistema.<br>5. Administrador ingresa nombre del producto.<br>6. Sistema valida que el nombre no esté vacío.<br>7. Administrador selecciona categoría del producto.<br>8. Administrador ingresa laboratorio o fabricante.<br>9. Administrador ingresa precio de costo.<br>10. Sistema valida que el precio de costo sea mayor a 0.<br>11. Administrador ingresa precio de venta.<br>12. Sistema valida que el precio de venta sea mayor al precio de costo.<br>13. Administrador ingresa stock inicial.<br>14. Sistema valida que el stock sea mayor o igual a 0.<br>15. Administrador ingresa stock mínimo.<br>16. Sistema valida que el stock mínimo sea mayor a 0.<br>17. Administrador ingresa fecha de vencimiento.<br>18. Sistema valida que la fecha de vencimiento sea posterior a la fecha actual.<br>19. Administrador presiona botón "Guardar".<br>20. Sistema guarda producto en base de datos.<br>21. Sistema muestra mensaje de confirmación "Producto registrado exitosamente".<br>22. Sistema limpia formulario para nuevo registro.</td></tr>
+            <tr><td>Flujos Alternativos</td><td>FA-01: Código de barras ya existe → sistema muestra mensaje "El código de barras ya está registrado".<br>FA-02: Nombre vacío → sistema muestra mensaje "El nombre del producto es obligatorio".<br>FA-03: Precio de costo inválido → sistema muestra mensaje "El precio de costo debe ser mayor a 0".<br>FA-04: Precio de venta menor a costo → sistema muestra mensaje "El precio de venta debe ser mayor al precio de costo".<br>FA-05: Stock negativo → sistema muestra mensaje "El stock no puede ser negativo".<br>FA-06: Stock mínimo inválido → sistema muestra mensaje "El stock mínimo debe ser mayor a 0".<br>FA-07: Fecha de vencimiento pasada → sistema muestra mensaje "La fecha de vencimiento debe ser posterior a hoy".<br>FA-08: Error al guardar → sistema muestra mensaje "Error al registrar producto, intente nuevamente".</td></tr>
+            <tr><td>Excepciones</td><td>EX-01: Error de conexión a base de datos → sistema muestra mensaje de error y permite reintentar.<br>EX-02: Categoría no existe → sistema solicita primero registrar la categoría.</td></tr>
+            <tr><td>Reglas de Negocio</td><td>RN-01: El código de barras debe ser único en el sistema.<br>RN-02: El precio de venta debe ser mayor al precio de costo.<br>RN-03: La fecha de vencimiento debe ser posterior a la fecha actual.<br>RN-04: Solo el Administrador puede registrar productos.<br>RN-05: El stock mínimo debe ser al menos 1 unidad.<br>RN-06: El producto se registra como activo por defecto.</td></tr>
+            <tr><td>Postcondiciones</td><td>1. Producto registrado en base de datos con estado activo.<br>2. Stock inicial registrado correctamente.<br>3. Precios de costo y venta registrados.<br>4. Fecha de vencimiento registrada.<br>5. Producto disponible para ventas y compras.</td></tr>
+        </table>
+        <div class="diagram-container">
+            <svg id="uc02" width="700" height="420" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Caso de Uso – CU-02: Registrar Productos</div>
+        </div>
+        <div class="diagram-container">
+            <svg id="seq02" width="780" height="520" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Secuencia – CU-02: Registrar Productos</div>
+        </div>
+    </div>
+
+    <!-- CU-03 -->
+    <div class="section">
+        <div class="section-title">CASO DE USO CU-03: Registrar Compras</div>
+        <table class="table-casouso">
+            <tr><td>Código</td><td>CU-03</td></tr>
+            <tr><td>Nombre</td><td>Registrar Compras</td></tr>
+            <tr><td>Actor Principal</td><td>Administrador</td></tr>
+            <tr><td>Precondiciones</td><td>1. Administrador autenticado y con permisos de administrador.<br>2. Al menos un proveedor registrado en el sistema.<br>3. Al menos un producto registrado en el inventario.<br>4. Sistema conectado a base de datos.</td></tr>
+            <tr><td>Flujo Principal</td><td>1. Administrador selecciona opción "Registrar Compra" del menú.<br>2. Sistema muestra formulario de registro de compra.<br>3. Administrador selecciona proveedor de la lista desplegable.<br>4. Sistema muestra productos disponibles para compra.<br>5. Administrador selecciona producto a comprar.<br>6. Sistema muestra información del producto (nombre, precio de costo actual).<br>7. Administrador ingresa cantidad a comprar.<br>8. Sistema valida que la cantidad sea mayor a 0.<br>9. Administrador ingresa precio de costo unitario.<br>10. Sistema valida que el precio de costo sea mayor a 0.<br>11. Sistema calcula subtotal (cantidad × precio de costo).<br>12. Administrador puede agregar más productos al mismo pedido.<br>13. Sistema calcula total de la compra.<br>14. Administrador ingresa número de factura del proveedor.<br>15. Administrador selecciona método de pago (efectivo, transferencia, cheque).<br>16. Administrador presiona botón "Confirmar Compra".<br>17. Sistema guarda registro de compra en base de datos.<br>18. Sistema actualiza stock del producto (suma cantidad comprada).<br>19. Sistema actualiza precio de costo del producto si es diferente.<br>20. Sistema genera número de orden de compra.<br>21. Sistema muestra mensaje de confirmación "Compra registrada exitosamente".<br>22. Sistema muestra resumen de la compra.</td></tr>
+            <tr><td>Flujos Alternativos</td><td>FA-01: Sin proveedores registrados → sistema muestra mensaje "No hay proveedores registrados, registre uno primero".<br>FA-02: Sin productos registrados → sistema muestra mensaje "No hay productos registrados, registre uno primero".<br>FA-03: Cantidad inválida → sistema muestra mensaje "La cantidad debe ser mayor a 0".<br>FA-04: Precio de costo inválido → sistema muestra mensaje "El precio de costo debe ser mayor a 0".<br>FA-05: Número de factura vacío → sistema muestra mensaje "El número de factura es obligatorio".<br>FA-06: Error al guardar → sistema muestra mensaje "Error al registrar compra, intente nuevamente".<br>FA-07: Producto ya agregado → sistema suma cantidad al producto existente en el pedido.</td></tr>
+            <tr><td>Excepciones</td><td>EX-01: Error de conexión a base de datos → sistema muestra mensaje de error y permite reintentar.<br>EX-02: Proveedor no encontrado → sistema muestra mensaje de error.<br>EX-03: Producto no encontrado → sistema muestra mensaje de error.</td></tr>
+            <tr><td>Reglas de Negocio</td><td>RN-01: Solo el Administrador puede registrar compras.<br>RN-02: La cantidad comprada debe ser mayor a 0.<br>RN-03: El precio de costo debe ser mayor a 0.<br>RN-04: El número de factura del proveedor es obligatorio.<br>RN-05: Al registrar una compra, el stock del producto se incrementa automáticamente.<br>RN-06: Si el precio de costo cambia, se actualiza automáticamente en el producto.<br>RN-07: Se puede comprar el mismo producto múltiples veces en una misma orden.</td></tr>
+            <tr><td>Postcondiciones</td><td>1. Compra registrada en base de datos con número de orden.<br>2. Stock del producto actualizado (incrementado).<br>3. Precio de costo actualizado si hubo cambio.<br>4. Número de factura del proveedor registrado.<br>5. Método de pago registrado.<br>6. Fecha y hora de compra registrada.</td></tr>
+        </table>
+        <div class="diagram-container">
+            <svg id="uc03" width="700" height="420" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Caso de Uso – CU-03: Registrar Compras</div>
+        </div>
+        <div class="diagram-container">
+            <svg id="seq03" width="780" height="520" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Secuencia – CU-03: Registrar Compras</div>
+        </div>
+    </div>
+
+    <!-- CU-04 -->
+    <div class="section">
+        <div class="section-title">CASO DE USO CU-04: Registrar Ventas</div>
+        <table class="table-casouso">
+            <tr><td>Código</td><td>CU-04</td></tr>
+            <tr><td>Nombre</td><td>Registrar Ventas</td></tr>
+            <tr><td>Actor Principal</td><td>Vendedor</td></tr>
+            <tr><td>Precondiciones</td><td>1. Usuario autenticado.<br>2. Productos existentes en inventario con stock disponible.</td></tr>
+            <tr><td>Flujo Principal</td><td>1. Vendedor selecciona productos a vender.<br>2. Sistema calcula subtotal.<br>3. Vendedor ingresa cantidad.<br>4. Sistema calcula total.<br>5. Vendedor confirma la venta.<br>6. Sistema genera factura.<br>7. Sistema descuenta stock del inventario.</td></tr>
+            <tr><td>Flujos Alternativos</td><td>FA-01: Producto sin stock → advertencia al vendedor.</td></tr>
+            <tr><td>Postcondiciones</td><td>1. Venta registrada.<br>2. Factura generada.<br>3. Stock actualizado.</td></tr>
+        </table>
+        <div class="diagram-container">
+            <svg id="uc04" width="700" height="480" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Caso de Uso – CU-04: Registrar Ventas</div>
+        </div>
+        <div class="diagram-container">
+            <svg id="seq04" width="780" height="580" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Secuencia – CU-04: Registrar Ventas</div>
+        </div>
+    </div>
+
+    <!-- CU-05 -->
+    <div class="section">
+        <div class="section-title">CASO DE USO CU-05: Monitoreo de Costos</div>
+        <table class="table-casouso">
+            <tr><td>Código</td><td>CU-05</td></tr>
+            <tr><td>Nombre</td><td>Monitoreo de Costos</td></tr>
+            <tr><td>Actor Principal</td><td>Administrador</td></tr>
+            <tr><td>Precondiciones</td><td>1. Administrador autenticado.<br>2. Registro de compras disponible en BD.</td></tr>
+            <tr><td>Flujo Principal</td><td>1. Administrador selecciona producto.<br>2. Sistema muestra historial de precios de costo.<br>3. Sistema detecta cambios de precio.<br>4. Sistema sugiere ajuste de precio de venta.<br>5. Administrador confirma o rechaza el ajuste.</td></tr>
+            <tr><td>Flujos Alternativos</td><td>FA-01: Sin cambios detectados → no generar sugerencia.</td></tr>
+            <tr><td>Postcondiciones</td><td>1. Precios actualizados si el admin lo confirma.</td></tr>
+        </table>
+        <div class="diagram-container">
+            <svg id="uc05" width="700" height="420" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Caso de Uso – CU-05: Monitoreo de Costos</div>
+        </div>
+        <div class="diagram-container">
+            <svg id="seq05" width="780" height="480" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Secuencia – CU-05: Monitoreo de Costos</div>
+        </div>
+    </div>
+
+    <!-- CU-06 -->
+    <div class="section">
+        <div class="section-title">CASO DE USO CU-06: Alerta de Caducidad</div>
+        <table class="table-casouso">
+            <tr><td>Código</td><td>CU-06</td></tr>
+            <tr><td>Nombre</td><td>Alerta de Caducidad</td></tr>
+            <tr><td>Actor Principal</td><td>Administrador</td></tr>
+            <tr><td>Precondiciones</td><td>1. Productos con fecha de vencimiento registrada en BD.</td></tr>
+            <tr><td>Flujo Principal</td><td>1. Sistema verifica fechas de vencimiento diariamente.<br>2. Sistema identifica productos próximos a vencer (30 días).<br>3. Sistema genera alerta visible.<br>4. Sistema notifica al Administrador.</td></tr>
+            <tr><td>Flujos Alternativos</td><td>FA-01: Sin productos próximos a vencer → no generar alerta.</td></tr>
+            <tr><td>Postcondiciones</td><td>1. Alertas visibles en el panel del sistema.</td></tr>
+        </table>
+        <div class="diagram-container">
+            <svg id="uc06" width="700" height="420" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Caso de Uso – CU-06: Alerta de Caducidad</div>
+        </div>
+        <div class="diagram-container">
+            <svg id="seq06" width="780" height="480" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Secuencia – CU-06: Alerta de Caducidad</div>
+        </div>
+    </div>
+
+    <!-- CU-07 -->
+    <div class="section">
+        <div class="section-title">CASO DE USO CU-07: Generar Reportes</div>
+        <table class="table-casouso">
+            <tr><td>Código</td><td>CU-07</td></tr>
+            <tr><td>Nombre</td><td>Generar Reportes</td></tr>
+            <tr><td>Actor Principal</td><td>Administrador</td></tr>
+            <tr><td>Precondiciones</td><td>1. Administrador autenticado.<br>2. Datos disponibles en el sistema.</td></tr>
+            <tr><td>Flujo Principal</td><td>1. Administrador selecciona tipo de reporte (inventario, ventas, compras, vencimientos).<br>2. Sistema consulta los datos necesarios.<br>3. Sistema genera el reporte.<br>4. Sistema muestra vista previa.<br>5. Administrador exporta o imprime.</td></tr>
+            <tr><td>Flujos Alternativos</td><td>FA-01: Sin datos disponibles → mostrar mensaje de advertencia.</td></tr>
+            <tr><td>Postcondiciones</td><td>1. Reporte generado correctamente.</td></tr>
+        </table>
+        <div class="diagram-container">
+            <svg id="uc07" width="700" height="460" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Caso de Uso – CU-07: Generar Reportes</div>
+        </div>
+        <div class="diagram-container">
+            <svg id="seq07" width="780" height="540" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="diagram-caption">Diagrama de Secuencia – CU-07: Generar Reportes</div>
+        </div>
+    </div>
+
+    <!-- RESUMEN -->
+    <div class="section">
+        <div class="section-title">RESUMEN DE CORRESPONDENCIA</div>
+        <table>
+            <tr><th>Requisito</th><th>Caso de Uso</th><th>Nombre</th></tr>
+            <tr><td>RF-001</td><td>CU-01</td><td>Inicio de Sesión</td></tr>
+            <tr><td>RF-002</td><td>CU-02</td><td>Registrar Productos</td></tr>
+            <tr><td>RF-003</td><td>CU-03</td><td>Registrar Compras</td></tr>
+            <tr><td>RF-004</td><td>CU-04</td><td>Registrar Ventas</td></tr>
+            <tr><td>RF-005</td><td>CU-05</td><td>Monitoreo de Costos</td></tr>
+            <tr><td>RF-006</td><td>CU-06</td><td>Alerta de Caducidad</td></tr>
+            <tr><td>RF-007</td><td>CU-07</td><td>Generar Reportes</td></tr>
+        </table>
+        <p style="text-align:center;margin-top:30px;font-size:18px;font-weight:bold;">Total: 7 casos de uso completamente documentados</p>
+    </div>
+
+</div>
+
+<div class="edit-controls">
+    <button class="edit-btn print" onclick="window.print()">📄 Guardar PDF</button>
+</div>
+
+<script>
+// ─────────────────── HELPERS SVG ───────────────────
+function svgEl(tag, attrs) {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+    return el;
+}
+function actor(svg, x, y, label) {
+    // Cabeza
+    svg.appendChild(svgEl('circle', {cx:x,cy:y,r:12,fill:'white',stroke:'black','stroke-width':1.5}));
+    // Cuerpo
+    svg.appendChild(svgEl('line', {x1:x,y1:y+12,x2:x,y2:y+40,stroke:'black','stroke-width':1.5}));
+    // Brazos
+    svg.appendChild(svgEl('line', {x1:x-16,y1:y+22,x2:x+16,y2:y+22,stroke:'black','stroke-width':1.5}));
+    // Piernas
+    svg.appendChild(svgEl('line', {x1:x,y1:y+40,x2:x-14,y2:y+60,stroke:'black','stroke-width':1.5}));
+    svg.appendChild(svgEl('line', {x1:x,y1:y+40,x2:x+14,y2:y+60,stroke:'black','stroke-width':1.5}));
+    // Etiqueta
+    const t = svgEl('text', {x:x,y:y+76,'text-anchor':'middle','font-size':'12','font-family':'Arial'});
+    t.textContent = label;
+    svg.appendChild(t);
+}
+function ucOval(svg, cx, cy, rx, ry, text, subtext) {
+    svg.appendChild(svgEl('ellipse', {cx,cy,rx,ry,fill:'white',stroke:'black','stroke-width':1.5}));
+    const t = svgEl('text', {x:cx,y:subtext?cy-6:cy,'text-anchor':'middle','font-size':'11.5','font-family':'Arial','font-weight':'bold'});
+    t.textContent = text;
+    svg.appendChild(t);
+    if (subtext) {
+        const t2 = svgEl('text', {x:cx,y:cy+12,'text-anchor':'middle','font-size':'11','font-family':'Arial'});
+        t2.textContent = subtext;
+        svg.appendChild(t2);
+    }
+}
+function arrow(svg, x1, y1, x2, y2, dashed, label) {
+    const d = dashed ? '6,4' : '';
+    const line = svgEl('line', {x1,y1,x2,y2,stroke:'black','stroke-width':1.3,'stroke-dasharray':d,'marker-end':'url(#arrow)'});
+    svg.appendChild(line);
+    if (label) {
+        const mx = (x1+x2)/2, my = (y1+y2)/2 - 2;
+        const color = label.includes('include') ? '#1a6aad' : '#8c1a8c';
+        // fondo blanco detras del texto
+        const bw = label.length * 7 + 8;
+        svg.appendChild(svgEl('rect', {x:mx - bw/2, y:my-14, width:bw, height:17, fill:'white', stroke:color, 'stroke-width':0.8, rx:2}));
+        const t = svgEl('text', {x:mx, y:my, 'text-anchor':'middle', 'font-size':'10.5', 'font-style':'italic', 'font-weight':'bold', 'fill':color, 'font-family':'Arial'});
+        t.textContent = label;
+        svg.appendChild(t);
+    }
+}
+function addDefs(svg) {
+    const defs = svgEl('defs', {});
+    defs.innerHTML = `<marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="black"/></marker>`;
+    svg.appendChild(defs);
+}
+function sysRect(svg, x, y, w, h, title) {
+    svg.appendChild(svgEl('rect', {x,y,width:w,height:h,fill:'none',stroke:'black','stroke-width':2}));
+    const t = svgEl('text', {x:x+w/2,y:y+18,'text-anchor':'middle','font-size':'13','font-weight':'bold','font-family':'Arial'});
+    t.textContent = title;
+    svg.appendChild(t);
+}
+
+// ─────────────────── DIAGRAMA PRINCIPAL ───────────────────
+function drawMain() {
+    const svg = document.getElementById('mainDiagram');
+    addDefs(svg);
+
+    // System boundary
+    sysRect(svg, 160, 10, 580, 780, 'Sistema de Inventario – Farmacia Santa Cruz');
+
+    // Actors (left)
+    actor(svg, 60, 100, 'Administrador');
+    actor(svg, 60, 320, 'Vendedor');
+
+    // Use cases: cx, cy - Organizados en flujo lógico de arriba hacia abajo
+    const ucs = [
+        {id:'CU-01', label:'CU-01', sub:'Inicio de Sesión',      cx:440, cy:80},   // 1ro: Acceso al sistema
+        {id:'CU-02', label:'CU-02', sub:'Registrar Productos',    cx:440, cy:180},  // 2do: Crear inventario
+        {id:'CU-03', label:'CU-03', sub:'Registrar Compras',      cx:440, cy:280},  // 3ro: Reabastecer
+        {id:'CU-04', label:'CU-04', sub:'Registrar Ventas',       cx:440, cy:380},  // 4to: Vender productos
+        {id:'CU-05', label:'CU-05', sub:'Monitoreo de Costos',    cx:440, cy:480},  // 5to: Analizar costos
+        {id:'CU-06', label:'CU-06', sub:'Alerta de Caducidad',    cx:440, cy:580},  // 6to: Controlar calidad
+        {id:'CU-07', label:'CU-07', sub:'Generar Reportes',       cx:440, cy:680},  // 7mo: Analizar datos
+    ];
+    ucs.forEach(u => ucOval(svg, u.cx, u.cy, 100, 30, u.label, u.sub));
+
+    // Actor → UC arrows
+    const actorArrows = [
+        [60,145,  340,80],   // Admin → CU-01
+        [60,145,  340,180],  // Admin → CU-02
+        [60,145,  340,280],  // Admin → CU-03
+        [60,145,  340,480],  // Admin → CU-05
+        [60,145,  340,580],  // Admin → CU-06
+        [60,145,  340,680],  // Admin → CU-07
+        [60,365,  340,80],   // Vendedor → CU-01
+        [60,365,  340,380],  // Vendedor → CU-04
+    ];
+    actorArrows.forEach(([x1,y1,x2,y2]) => arrow(svg,x1,y1,x2,y2,false,null));
+
+    // Hacer el SVG responsivo
+    svg.setAttribute('viewBox', '0 0 860 820');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', 'auto');
+}
+
+// ─────────────────── DIAGRAMA CASO DE USO INDIVIDUAL ───────────────────
+function drawUC(id, actorLabel, sysTitle, mainLabel, mainSub, includes, extends_) {
+    const svg = document.getElementById(id);
+    addDefs(svg);
+    const W = parseInt(svg.getAttribute('width'));
+    const H = parseInt(svg.getAttribute('height'));
+
+    const total = includes.length + extends_.length;
+    const slotH = 72; // vertical spacing between sub-UCs
+    const topPad = 55;
+    const subCX  = 570;
+    const mainCX = 320;
+
+    // Calcular altura total necesaria y centrar el ovalo principal
+    const totalH = topPad + total * slotH + 40;
+    const mainCY = Math.max(totalH / 2, topPad + includes.length * slotH / 2);
+
+    // actualizar altura SVG dinamicamente
+    const neededH = Math.max(H, totalH + 80);
+    svg.setAttribute('height', neededH);
+
+    // Boundary con titulo partido si largo
+    svg.appendChild(svgEl('rect', {x:155, y:10, width:W-175, height:neededH-20, fill:'none', stroke:'black', 'stroke-width':2}));
+    // titulo partido en dos lineas si es largo
+    const titleWords = sysTitle.split(' ');
+    const half = Math.ceil(titleWords.length / 2);
+    const line1 = titleWords.slice(0, half).join(' ');
+    const line2 = titleWords.slice(half).join(' ');
+    const tT1 = svgEl('text', {x:155+(W-175)/2, y:27, 'text-anchor':'middle', 'font-size':'12', 'font-weight':'bold', 'font-family':'Arial'});
+    tT1.textContent = line1;
+    svg.appendChild(tT1);
+    if (line2) {
+        const tT2 = svgEl('text', {x:155+(W-175)/2, y:42, 'text-anchor':'middle', 'font-size':'12', 'font-weight':'bold', 'font-family':'Arial'});
+        tT2.textContent = line2;
+        svg.appendChild(tT2);
+    }
+
+    // Actor
+    actor(svg, 70, mainCY - 30, actorLabel);
+
+    // Main UC oval
+    ucOval(svg, mainCX, mainCY, 100, 30, mainLabel, mainSub);
+
+    // Arrow from actor to main UC
+    arrow(svg, 110, mainCY - 30, mainCX - 100, mainCY, false, null);
+
+    // Sub-UCs (includes and extends)
+    let subY = topPad;
+    includes.forEach((subLabel, i) => {
+        ucOval(svg, subCX, subY, 90, 25, subLabel, null);
+        arrow(svg, mainCX + 100, mainCY, subCX - 90, subY, false, '<<include>>');
+        subY += slotH;
+    });
+    extends_.forEach((subLabel, i) => {
+        ucOval(svg, subCX, subY, 90, 25, subLabel, null);
+        arrow(svg, mainCX + 100, mainCY, subCX - 90, subY, true, '<<extend>>');
+        subY += slotH;
+    });
+}
+
+// ─────────────────── DIAGRAMA DE SECUENCIA ───────────────────
+function drawSeq(id, title, steps) {
+    const svg = document.getElementById(id);
+    addDefs(svg);
+    const W = parseInt(svg.getAttribute('width'));
+    const H = parseInt(svg.getAttribute('height'));
+
+    // Title
+    const tT = svgEl('text', {x:W/2, y:25, 'text-anchor':'middle', 'font-size':'14', 'font-weight':'bold', 'font-family':'Arial'});
+    tT.textContent = title;
+    svg.appendChild(tT);
+
+    // Lifelines
+    const lifelines = ['Usuario', 'Sistema', 'Base de Datos'];
+    const spacing = W / (lifelines.length + 1);
+    lifelines.forEach((name, i) => {
+        const x = spacing * (i + 1);
+        // Actor box
+        svg.appendChild(svgEl('rect', {x:x-40, y:40, width:80, height:30, fill:'white', stroke:'black', 'stroke-width':1.5}));
+        const t = svgEl('text', {x:x, y:60, 'text-anchor':'middle', 'font-size':'11', 'font-family':'Arial'});
+        t.textContent = name;
+        svg.appendChild(t);
+        // Lifeline
+        svg.appendChild(svgEl('line', {x1:x, y1:70, x2:x, y2:H-20, stroke:'black', 'stroke-width':1, 'stroke-dasharray':'5,5'}));
+    });
+
+    // Steps
+    let y = 100;
+    steps.forEach((step, i) => {
+        const fromX = spacing * (step.from + 1);
+        const toX = spacing * (step.to + 1);
+        // Arrow
+        arrow(svg, fromX, y, toX, y, false, step.label);
+        // Step number
+        const tN = svgEl('text', {x:fromX - 50, y:y+5, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+        tN.textContent = (i + 1).toString();
+        svg.appendChild(tN);
+        y += 40;
+    });
+}
+
+// ─────────────────── INICIALIZACIÓN ───────────────────
+window.onload = function() {
+    drawMain();
+
+    // CU-01: Inicio de Sesión (con sub-casos de uso detallados y relaciones extend/include)
+    drawUC('uc01', 'Usuario', 'Sistema de Inventario – Farmacia Santa Cruz', 'CU-01', 'Inicio de Sesión',
+        ['Validar credenciales', 'Verificar rol', 'Asignar permisos', 'Registrar sesión', 'Cargar configuración'],
+        ['Recuperar contraseña', 'Cambiar contraseña']);
+    drawSeq('seq01', 'Diagrama de Secuencia – CU-01: Inicio de Sesión', [
+        {from: 0, to: 1, label: '1. Ingresar usuario y contraseña'},
+        {from: 1, to: 2, label: '2. Validar credenciales y obtener rol'},
+        {from: 2, to: 1, label: '3. Usuario válido con rol y permisos'},
+        {from: 1, to: 0, label: '4. Permitir acceso al sistema'},
+    ]);
+
+    // CU-02: Registrar Productos (con sub-casos de uso detallados y relaciones extend/include)
+    drawUC('uc02', 'Administrador', 'Sistema de Inventario – Farmacia Santa Cruz', 'CU-02', 'Registrar Productos',
+        ['Validar datos del producto', 'Verificar duplicados', 'Guardar en base de datos', 'Asignar categoría', 'Registrar laboratorio', 'Establecer precios'],
+        ['Editar producto', 'Eliminar producto', 'Buscar producto']);
+    drawSeq('seq02', 'Diagrama de Secuencia – CU-02: Registrar Productos', [
+        {from: 0, to: 1, label: '1. Ingresar datos del producto (nombre, precios, stock, laboratorio, fecha, categoría)'},
+        {from: 1, to: 2, label: '2. Validar datos y verificar duplicados'},
+        {from: 2, to: 1, label: '3. Datos válidos, producto no existe'},
+        {from: 1, to: 2, label: '4. Guardar producto en BD'},
+        {from: 2, to: 1, label: '5. Producto guardado'},
+        {from: 1, to: 0, label: '6. Mostrar confirmación de registro'},
+    ]);
+
+    // CU-03: Registrar Compras (con sub-casos de uso detallados y relaciones extend/include)
+    drawUC('uc03', 'Administrador', 'Sistema de Inventario – Farmacia Santa Cruz', 'CU-03', 'Registrar Compras',
+        ['Seleccionar proveedor', 'Seleccionar productos', 'Calcular totales', 'Actualizar stock', 'Registrar factura', 'Verificar precios'],
+        ['Anular compra', 'Devolver productos', 'Consultar historial compras']);
+    drawSeq('seq03', 'Diagrama de Secuencia – CU-03: Registrar Compras', [
+        {from: 0, to: 1, label: '1. Seleccionar proveedor y productos a comprar'},
+        {from: 1, to: 2, label: '2. Consultar proveedor y productos en BD'},
+        {from: 2, to: 1, label: '3. Datos del proveedor y productos'},
+        {from: 1, to: 0, label: '4. Mostrar datos y solicitar cantidades y precios'},
+        {from: 0, to: 1, label: '5. Ingresar cantidades y precios de costo'},
+        {from: 1, to: 2, label: '6. Calcular totales y guardar compra'},
+        {from: 2, to: 1, label: '7. Compra guardada, stock actualizado'},
+        {from: 1, to: 0, label: '8. Mostrar confirmación de compra'},
+    ]);
+
+    // CU-04: Registrar Ventas (con sub-casos de uso detallados y relaciones extend/include)
+    drawUC('uc04', 'Vendedor', 'Sistema de Inventario – Farmacia Santa Cruz', 'CU-04', 'Registrar Ventas',
+        ['Buscar productos', 'Verificar stock', 'Calcular total', 'Generar factura', 'Aplicar descuento', 'Registrar pago'],
+        ['Anular venta', 'Devolver productos', 'Consultar historial ventas']);
+    drawSeq('seq04', 'Diagrama de Secuencia – CU-04: Registrar Ventas', [
+        {from: 0, to: 1, label: '1. Buscar productos y seleccionar cantidades'},
+        {from: 1, to: 2, label: '2. Verificar stock y calcular total'},
+        {from: 2, to: 1, label: '3. Stock suficiente, total calculado'},
+        {from: 1, to: 0, label: '4. Mostrar total y solicitar confirmación'},
+        {from: 0, to: 1, label: '5. Confirmar venta'},
+        {from: 1, to: 2, label: '6. Guardar venta, descontar stock, generar factura'},
+        {from: 2, to: 1, label: '7. Venta guardada, factura generada'},
+        {from: 1, to: 0, label: '8. Mostrar factura al cliente'},
+    ]);
+
+    // CU-05: Monitoreo de Costos (con sub-casos de uso detallados y relaciones extend/include)
+    drawUC('uc05', 'Administrador', 'Sistema de Inventario – Farmacia Santa Cruz', 'CU-05', 'Monitoreo de Costos',
+        ['Consultar historial', 'Detectar cambios', 'Sugerir ajuste', 'Analizar tendencias', 'Generar alertas precios'],
+        ['Actualizar precios masivamente', 'Exportar historial precios']);
+    drawSeq('seq05', 'Diagrama de Secuencia – CU-05: Monitoreo de Costos', [
+        {from: 0, to: 1, label: '1. Seleccionar producto'},
+        {from: 1, to: 2, label: '2. Consultar historial de precios'},
+        {from: 2, to: 1, label: '3. Historial de precios de costo'},
+        {from: 1, to: 0, label: '4. Mostrar historial y sugerir ajuste'},
+        {from: 0, to: 1, label: '5. Confirmar ajuste de precio'},
+        {from: 1, to: 2, label: '6. Actualizar precio de venta'},
+        {from: 2, to: 1, label: '7. Precio actualizado'},
+        {from: 1, to: 0, label: '8. Mostrar confirmación'},
+    ]);
+
+    // CU-06: Alerta de Caducidad (con sub-casos de uso detallados y relaciones extend/include)
+    drawUC('uc06', 'Administrador', 'Sistema de Inventario – Farmacia Santa Cruz', 'CU-06', 'Alerta de Caducidad',
+        ['Verificar fechas', 'Identificar productos', 'Generar alertas', 'Notificar administrador', 'Programar verificación'],
+        ['Marcar productos vencidos', 'Eliminar productos vencidos', 'Generar reporte vencimientos']);
+    drawSeq('seq06', 'Diagrama de Secuencia – CU-06: Alerta de Caducidad', [
+        {from: 1, to: 2, label: '1. Ejecutar verificación diaria de fechas'},
+        {from: 2, to: 1, label: '2. Productos próximos a vencer (30 días)'},
+        {from: 1, to: 0, label: '3. Notificar al administrador'},
+        {from: 0, to: 1, label: '4. Revisar alertas'},
+        {from: 1, to: 0, label: '5. Mostrar alertas en panel'},
+    ]);
+
+    // CU-07: Generar Reportes (con sub-casos de uso detallados y relaciones extend/include)
+    drawUC('uc07', 'Administrador', 'Sistema de Inventario – Farmacia Santa Cruz', 'CU-07', 'Generar Reportes',
+        ['Seleccionar tipo', 'Consultar datos', 'Generar reporte', 'Exportar', 'Filtrar datos', 'Programar reportes'],
+        ['Imprimir reporte', 'Enviar por email', 'Guardar plantilla']);
+    drawSeq('seq07', 'Diagrama de Secuencia – CU-07: Generar Reportes', [
+        {from: 0, to: 1, label: '1. Seleccionar tipo de reporte'},
+        {from: 1, to: 2, label: '2. Consultar datos y generar reporte'},
+        {from: 2, to: 1, label: '3. Reporte generado'},
+        {from: 1, to: 0, label: '4. Mostrar vista previa'},
+        {from: 0, to: 1, label: '5. Confirmar exportación'},
+        {from: 1, to: 2, label: '6. Exportar reporte'},
+        {from: 2, to: 1, label: '7. Reporte exportado'},
+        {from: 1, to: 0, label: '8. Mostrar confirmación'},
+    ]);
+};
+
+// ─────────────────── DIAGRAMA DE CONTEXTO ───────────────────
+function drawContext() {
+    const svg = document.getElementById('contextDiagram');
+    addDefs(svg);
+    
+    // Sistema central
+    svg.appendChild(svgEl('rect', {x:300, y:180, width:200, height:140, fill:'#e8f4f8', stroke:'black', 'stroke-width':2, rx:10}));
+    const t1 = svgEl('text', {x:400, y:220, 'text-anchor':'middle', 'font-size':'12', 'font-weight':'bold', 'font-family':'Arial'});
+    t1.textContent = 'Sistema de';
+    svg.appendChild(t1);
+    const t2 = svgEl('text', {x:400, y:240, 'text-anchor':'middle', 'font-size':'12', 'font-weight':'bold', 'font-family':'Arial'});
+    t2.textContent = 'Inventario';
+    svg.appendChild(t2);
+    const t3 = svgEl('text', {x:400, y:260, 'text-anchor':'middle', 'font-size':'12', 'font-weight':'bold', 'font-family':'Arial'});
+    t3.textContent = 'Farmacia Santa Cruz';
+    svg.appendChild(t3);
+    
+    // Actores
+    actor(svg, 100, 100, 'Administrador');
+    actor(svg, 100, 350, 'Vendedor');
+    actor(svg, 700, 100, 'Proveedor');
+    actor(svg, 700, 350, 'Cliente');
+    
+    // Flechas
+    arrow(svg, 130, 130, 300, 220, false, 'Credenciales, datos');
+    arrow(svg, 300, 220, 130, 130, false, 'Pantallas, reportes');
+    arrow(svg, 130, 380, 300, 280, false, 'Credenciales, ventas');
+    arrow(svg, 300, 280, 130, 380, false, 'Facturas, búsquedas');
+    arrow(svg, 500, 220, 670, 130, false, 'Pedidos');
+    arrow(svg, 670, 130, 500, 220, false, 'Productos');
+    arrow(svg, 500, 280, 670, 380, false, 'Productos');
+    arrow(svg, 670, 380, 500, 280, false, 'Pago');
+}
+
+// ─────────────────── DIAGRAMA DE PAQUETES ───────────────────
+function drawPackages() {
+    const svg = document.getElementById('packageDiagram');
+    addDefs(svg);
+    
+    // Capa de Presentación
+    svg.appendChild(svgEl('rect', {x:50, y:50, width:700, height:80, fill:'#e8f4f8', stroke:'black', 'stroke-width':2, rx:5}));
+    const t1 = svgEl('text', {x:400, y:95, 'text-anchor':'middle', 'font-size':'14', 'font-weight':'bold', 'font-family':'Arial'});
+    t1.textContent = 'Capa de Presentación (Interfaz Gráfica)';
+    svg.appendChild(t1);
+    
+    // Capa de Lógica de Negocio
+    svg.appendChild(svgEl('rect', {x:50, y:150, width:700, height:80, fill:'#f4e8f8', stroke:'black', 'stroke-width':2, rx:5}));
+    const t2 = svgEl('text', {x:400, y:195, 'text-anchor':'middle', 'font-size':'14', 'font-weight':'bold', 'font-family':'Arial'});
+    t2.textContent = 'Capa de Lógica de Negocio (Validaciones, Cálculos)';
+    svg.appendChild(t2);
+    
+    // Capa de Acceso a Datos
+    svg.appendChild(svgEl('rect', {x:50, y:250, width:700, height:80, fill:'#f8f4e8', stroke:'black', 'stroke-width':2, rx:5}));
+    const t3 = svgEl('text', {x:400, y:295, 'text-anchor':'middle', 'font-size':'14', 'font-weight':'bold', 'font-family':'Arial'});
+    t3.textContent = 'Capa de Acceso a Datos (Consultas SQL)';
+    svg.appendChild(t3);
+    
+    // Capa de Persistencia
+    svg.appendChild(svgEl('rect', {x:50, y:350, width:700, height:80, fill:'#e8f8e8', stroke:'black', 'stroke-width':2, rx:5}));
+    const t4 = svgEl('text', {x:400, y:395, 'text-anchor':'middle', 'font-size':'14', 'font-weight':'bold', 'font-family':'Arial'});
+    t4.textContent = 'Capa de Persistencia (Base de Datos SQLite)';
+    svg.appendChild(t4);
+    
+    // Flechas entre capas
+    arrow(svg, 400, 130, 400, 150, false, 'Llamadas');
+    arrow(svg, 400, 230, 400, 250, false, 'Consultas');
+    arrow(svg, 400, 330, 400, 350, false, 'Datos');
+}
+
+// ─────────────────── DIAGRAMA DE ACTIVIDADES ───────────────────
+function drawActivity() {
+    const svg = document.getElementById('activityDiagram');
+    addDefs(svg);
+    
+    // Nodo inicial
+    svg.appendChild(svgEl('circle', {cx:100, cy:50, r:15, fill:'black'}));
+    
+    // Pantalla de inicio de sesión
+    svg.appendChild(svgEl('rect', {x:60, y:80, width:80, height:40, fill:'#e8f4f8', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t1 = svgEl('text', {x:100, y:105, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t1.textContent = 'Iniciar Sesión';
+    svg.appendChild(t1);
+    arrow(svg, 100, 65, 100, 80, false, null);
+    
+    // Validar credenciales
+    svg.appendChild(svgEl('diamond', {x:100, y:150, width:80, height:50, fill:'#f4e8f8', stroke:'black', 'stroke-width':1.5}));
+    const t2 = svgEl('text', {x:100, y:180, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t2.textContent = '¿Credenciales válidas?';
+    svg.appendChild(t2);
+    arrow(svg, 100, 120, 100, 150, false, null);
+    
+    // Menú principal
+    svg.appendChild(svgEl('rect', {x:60, y:220, width:80, height:40, fill:'#e8f4f8', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t3 = svgEl('text', {x:100, y:245, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t3.textContent = 'Menú Principal';
+    svg.appendChild(t3);
+    arrow(svg, 100, 200, 100, 220, false, 'Sí');
+    
+    // Opciones del menú
+    const opciones = [
+        {x:250, y:220, label:'Gestionar\nProductos'},
+        {x:400, y:220, label:'Gestionar\nCompras'},
+        {x:550, y:220, label:'Gestionar\nVentas'},
+        {x:700, y:220, label:'Ver\nAlertas'},
+        {x:850, y:220, label:'Generar\nReportes'}
+    ];
+    
+    opciones.forEach((op, i) => {
+        svg.appendChild(svgEl('rect', {x:op.x-40, y:op.y-20, width:80, height:40, fill:'#f8f4e8', stroke:'black', 'stroke-width':1.5, rx:5}));
+        const t = svgEl('text', {x:op.x, y:op.y+5, 'text-anchor':'middle', 'font-size':'9', 'font-family':'Arial'});
+        t.textContent = op.label;
+        svg.appendChild(t);
+        arrow(svg, 140, 240, op.x-40, op.y, false, null);
+    });
+    
+    // Acciones específicas
+    const acciones = [
+        {x:250, y:320, label:'Registrar/\nEditar Producto'},
+        {x:400, y:320, label:'Registrar\nCompra'},
+        {x:550, y:320, label:'Registrar\nVenta'},
+        {x:700, y:320, label:'Revisar\nAlertas'},
+        {x:850, y:320, label:'Generar\nReporte'}
+    ];
+    
+    acciones.forEach((acc, i) => {
+        svg.appendChild(svgEl('rect', {x:acc.x-40, y:acc.y-20, width:80, height:40, fill:'#e8f8e8', stroke:'black', 'stroke-width':1.5, rx:5}));
+        const t = svgEl('text', {x:acc.x, y:acc.y+5, 'text-anchor':'middle', 'font-size':'9', 'font-family':'Arial'});
+        t.textContent = acc.label;
+        svg.appendChild(t);
+        arrow(svg, opciones[i].x, opciones[i].y+20, acc.x, acc.y-20, false, null);
+    });
+    
+    // Guardar en BD
+    svg.appendChild(svgEl('rect', {x:400, y:420, width:80, height:40, fill:'#f4e8f8', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t4 = svgEl('text', {x:440, y:445, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t4.textContent = 'Guardar en BD';
+    svg.appendChild(t4);
+    
+    acciones.forEach((acc, i) => {
+        arrow(svg, acc.x, acc.y+20, 440, 420, false, null);
+    });
+    
+    // Cerrar sesión
+    svg.appendChild(svgEl('rect', {x:60, y:500, width:80, height:40, fill:'#e8f4f8', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t5 = svgEl('text', {x:100, y:525, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t5.textContent = 'Cerrar Sesión';
+    svg.appendChild(t5);
+    arrow(svg, 440, 460, 100, 500, false, null);
+    
+    // Nodo final
+    svg.appendChild(svgEl('circle', {cx:100, cy:570, r:15, fill:'black'}));
+    arrow(svg, 100, 540, 100, 555, false, null);
+    
+    // Mensaje de error
+    svg.appendChild(svgEl('rect', {x:200, y:150, width:80, height:40, fill:'#ffcccc', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t6 = svgEl('text', {x:240, y:175, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t6.textContent = 'Mostrar Error';
+    svg.appendChild(t6);
+    arrow(svg, 180, 175, 200, 175, false, 'No');
+}
+
+// ─────────────────── DIAGRAMA DE ESTADOS ───────────────────
+function drawState() {
+    const svg = document.getElementById('stateDiagram');
+    addDefs(svg);
+    
+    // Estado inicial
+    svg.appendChild(svgEl('circle', {cx:100, cy:50, r:15, fill:'black'}));
+    
+    // Estado: Registrado
+    svg.appendChild(svgEl('rect', {x:60, y:80, width:80, height:40, fill:'#e8f4f8', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t1 = svgEl('text', {x:100, y:105, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t1.textContent = 'Registrado';
+    svg.appendChild(t1);
+    arrow(svg, 100, 65, 100, 80, false, null);
+    
+    // Estado: Activo
+    svg.appendChild(svgEl('rect', {x:250, y:80, width:80, height:40, fill:'#ccffcc', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t2 = svgEl('text', {x:290, y:105, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t2.textContent = 'Activo';
+    svg.appendChild(t2);
+    arrow(svg, 140, 100, 250, 100, false, 'Guardar');
+    
+    // Estado: Stock Bajo
+    svg.appendChild(svgEl('rect', {x:400, y:80, width:80, height:40, fill:'#ffffcc', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t3 = svgEl('text', {x:440, y:105, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t3.textContent = 'Stock Bajo';
+    svg.appendChild(t3);
+    arrow(svg, 330, 100, 400, 100, false, 'Stock < Mínimo');
+    
+    // Estado: Próximo a Vencer
+    svg.appendChild(svgEl('rect', {x:550, y:80, width:80, height:40, fill:'#ffcccc', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t4 = svgEl('text', {x:590, y:105, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t4.textContent = 'Próximo a Vencer';
+    svg.appendChild(t4);
+    arrow(svg, 330, 120, 550, 100, false, 'Faltan 30 días');
+    
+    // Estado: Vencido
+    svg.appendChild(svgEl('rect', {x:700, y:80, width:80, height:40, fill:'#ff9999', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t5 = svgEl('text', {x:740, y:105, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t5.textContent = 'Vencido';
+    svg.appendChild(t5);
+    arrow(svg, 630, 100, 700, 100, false, 'Fecha pasada');
+    
+    // Estado: Agotado
+    svg.appendChild(svgEl('rect', {x:400, y:200, width:80, height:40, fill:'#cccccc', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t6 = svgEl('text', {x:440, y:225, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t6.textContent = 'Agotado';
+    svg.appendChild(t6);
+    arrow(svg, 440, 120, 440, 200, false, 'Stock = 0');
+    
+    // Estado: Inactivo
+    svg.appendChild(svgEl('rect', {x:250, y:200, width:80, height:40, fill:'#ccccff', stroke:'black', 'stroke-width':1.5, rx:5}));
+    const t7 = svgEl('text', {x:290, y:225, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Arial'});
+    t7.textContent = 'Inactivo';
+    svg.appendChild(t7);
+    arrow(svg, 290, 120, 290, 200, false, 'Deshabilitar');
+    
+    // Flechas de retorno
+    arrow(svg, 440, 240, 330, 120, true, 'Reponer stock');
+    arrow(svg, 290, 240, 290, 120, true, 'Rehabilitar');
+    
+    // Estado final
+    svg.appendChild(svgEl('circle', {cx:740, cy:200, r:15, fill:'black'}));
+    arrow(svg, 740, 120, 740, 185, false, 'Eliminar');
+}
+
+// Actualizar inicialización para incluir nuevos diagramas
+const originalOnload = window.onload;
+window.onload = function() {
+    originalOnload();
+    drawContext();
+    drawPackages();
+    drawActivity();
+    drawState();
+};
+</script>
+</body>
+</html>

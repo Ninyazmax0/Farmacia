@@ -1,0 +1,110 @@
+@startuml DER_FarmaciaSantaCruz
+
+skinparam classAttributeIconSize 0
+skinparam backgroundColor #FEFECE
+skinparam ArrowColor #A80036
+skinparam ClassBorderColor #A80036
+skinparam diamondBorderColor #A80036
+skinparam diamondBackgroundColor #FFE4E1
+
+' ═══════════════════════════════════════════════════════════════
+' DIAGRAMA ENTIDAD-RELACIÓN (DER) - FARMACIA SANTA CRUZ
+' Sistema de inventario para farmacia local
+' ═══════════════════════════════════════════════════════════════
+
+' ─────────────────────────────────────────────────────────────
+' ENTIDADES (Rectángulos)
+' ─────────────────────────────────────────────────────────────
+
+entity "Usuario" as Usuario {
+    * id_usuario : INT <<PK>>
+    --
+    * nombre : VARCHAR(100)
+    * usuario : VARCHAR(50)
+    * contrasena : VARCHAR(255)
+    * rol : VARCHAR(20)
+      activo : BOOLEAN
+      fecha_creacion : DATETIME
+}
+
+entity "Categoria" as Categoria {
+    * id_categoria : INT <<PK>>
+    --
+    * nombre : VARCHAR(50)
+      descripcion : TEXT
+      activo : BOOLEAN
+}
+
+entity "Producto" as Producto {
+    * id_producto : INT <<PK>>
+    --
+    * codigo_barras : VARCHAR(50)
+    * nombre : VARCHAR(150)
+      descripcion : TEXT
+    * id_categoria : INT <<FK>>
+    * laboratorio : VARCHAR(100)
+    * precio_costo : DECIMAL(10,2)
+    * precio_venta : DECIMAL(10,2)
+    * stock_actual : INT
+    * stock_minimo : INT
+    * fecha_vencimiento : DATE
+      activo : BOOLEAN
+      fecha_registro : DATETIME
+}
+
+entity "Proveedor" as Proveedor {
+    * id_proveedor : INT <<PK>>
+    --
+    * nombre : VARCHAR(150)
+      contacto : VARCHAR(100)
+      telefono : VARCHAR(20)
+      email : VARCHAR(100)
+      direccion : TEXT
+      activo : BOOLEAN
+}
+
+entity "Compra" as Compra {
+    * id_compra : INT <<PK>>
+    --
+    * id_proveedor : INT <<FK>>
+    * id_usuario : INT <<FK>>
+    * numero_factura : VARCHAR(50)
+    * fecha_compra : DATETIME
+    * total : DECIMAL(10,2)
+    * metodo_pago : VARCHAR(20)
+}
+
+entity "Venta" as Venta {
+    * id_venta : INT <<PK>>
+    --
+    * id_usuario : INT <<FK>>
+    * fecha_venta : DATETIME
+    * total : DECIMAL(10,2)
+    * metodo_pago : VARCHAR(20)
+}
+
+entity "Alerta" as Alerta {
+    * id_alerta : INT <<PK>>
+    --
+    * id_producto : INT <<FK>>
+    * tipo_alerta : VARCHAR(30)
+    * mensaje : TEXT
+    * fecha_alerta : DATETIME
+      leida : BOOLEAN
+}
+
+' ─────────────────────────────────────────────────────────────
+' RELACIONES (Rombos) con CARDINALIDAD
+' ─────────────────────────────────────────────────────────────
+
+Usuario ||--o{ Compra : "registra\n(1,N)"
+Usuario ||--o{ Venta : "registra\n(1,N)"
+Proveedor ||--o{ Compra : "suministra\n(1,N)"
+Categoria ||--o{ Producto : "clasifica\n(1,N)"
+Producto ||--o{ Alerta : "genera\n(1,N)"
+
+' Relaciones N:M con tablas intermedias implícitas
+Compra }o--o{ Producto : "contiene\n(M,N)\nvía DetalleCompra"
+Venta }o--o{ Producto : "incluye\n(M,N)\nvía DetalleVenta"
+
+@enduml
